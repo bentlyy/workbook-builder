@@ -1,0 +1,408 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Workbook Full Stack — Práctica guiada</title>
+<style>
+  :root{--ink:#1a1a1a;--muted:#555;--accent:#0f766e;--accent2:#155e75;--line:#cbd5e1;--bg:#fff;--soft:#f8fafc;}
+  *{box-sizing:border-box} body{font-family:Georgia,"Times New Roman",serif;color:var(--ink);background:var(--bg);margin:0;line-height:1.55}
+  .page{max-width:820px;margin:0 auto;padding:40px 48px}
+  h1,h2,h3,h4{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:#0b3b36}
+  h1{font-size:2.1rem;margin:0 0 .25rem} .subtitle{color:var(--muted);margin:0 0 1.25rem;font-size:1.05rem}
+  h2{font-size:1.4rem;border-bottom:2px solid var(--accent);padding-bottom:.25rem;margin:2rem 0 .5rem}
+  h3{font-size:1.08rem;margin:1.2rem 0 .3rem;color:var(--accent2)} h4{font-size:.98rem;margin:.6rem 0 .2rem}
+  .context{font-style:italic;color:var(--muted);margin:.2rem 0 .9rem}
+  .exercise{margin:.9rem 0 1.1rem} .inst{font-family:system-ui,sans-serif;font-weight:600;margin:.4rem 0 .3rem}
+  ol.items{margin:.2rem 0 .2rem 1.3rem;padding:0} ol.items li{margin:.38rem 0}
+  .subitems{list-style:lower-alpha;margin:.25rem 0 .25rem 1.2rem}
+  .blank{display:inline-block;min-width:9ch;border-bottom:1px solid #334155;height:1.15em;vertical-align:baseline}
+  .blank.md{min-width:18ch}.blank.lg{min-width:32ch}.line{display:block;border-bottom:1px solid #94a3b8;height:1.5em;margin:.18rem 0}
+  .example{background:var(--soft);border-left:3px solid var(--accent);padding:.55rem .75rem;margin:.5rem 0;font-size:.95rem}
+  code{font-family:ui-monospace,Consolas,"Cascadia Mono",monospace;background:#f1f5f9;padding:.05rem .3rem;border-radius:3px;font-size:.9em}
+  pre{background:#0f172a;color:#e2e8f0;padding:.7rem .9rem;border-radius:6px;overflow:auto;font-size:.84rem;line-height:1.45;white-space:pre-wrap}
+  .note{font-size:.92rem;color:var(--muted)} .pill{display:inline-block;font-size:.72rem;background:#ccfbf1;color:#134e4a;padding:.08rem .45rem;border-radius:999px;font-family:system-ui,sans-serif;margin-left:.3rem}
+  .toc ul{columns:2;gap:2rem;margin:.4rem 0} .toc li{margin:.22rem 0;font-family:system-ui,sans-serif;font-size:.95rem}
+  .answers{page-break-before:always} .answers h3{margin-top:1rem}
+  .key{font-family:system-ui,sans-serif;font-size:.93rem} .key p{margin:.25rem 0}
+  @media print{
+    .page{max-width:none;padding:0 8mm} body{font-size:10.8pt}
+    h2{page-break-after:avoid} .exercise,.example,pre{page-break-inside:avoid}
+    .unit{page-break-before:always} .unit:first-of-type,.cover{page-break-before:auto}
+    a{color:inherit;text-decoration:none}
+  }
+  @page{margin:15mm}
+</style>
+</head>
+<body>
+<div class="page">
+  <section class="cover">
+    <h1>Workbook Full Stack</h1>
+    <p class="subtitle">Práctica guiada de desarrollo web moderno — De fundamentos a arquitectura, calidad y entrega</p>
+    <p class="note">Orientado a: TypeScript, JavaScript, Node.js 20+, React 18+, Next.js, APIs REST, PostgreSQL/Prisma, testing (Vitest/Jest/Supertest), seguridad (JWT/RBAC/2FA), Docker y CI/CD. Completa los ejercicios y contrasta con el solucionario al final. Puedes imprimir este archivo o guardarlo como PDF desde el navegador.</p>
+  </section>
+
+  <section class="toc">
+    <h2>Índice</h2>
+    <ul>
+      <li>Nivel 1 — Fundamentos: TypeScript, JS moderno y HTTP</li>
+      <li>Nivel 2 — Frontend: React 18+ y Next.js (App Router)</li>
+      <li>Nivel 3 — Backend: Node.js, APIs REST, validación y errores</li>
+      <li>Nivel 4 — Datos: PostgreSQL, SQL y Prisma</li>
+      <li>Nivel 5 — Seguridad: autenticación, autorización y hardening</li>
+      <li>Nivel 6 — Calidad: testing, cobertura y automatización</li>
+      <li>Nivel 7 — DevOps y entrega: Docker, CI/CD y observabilidad</li>
+      <li>Solucionario</li>
+    </ul>
+  </section>
+
+  <section class="unit" id="n1">
+    <h2>Nivel 1 — Fundamentos: TypeScript, JavaScript moderno y HTTP</h2>
+    <p class="context">Dominar tipos, asincronía y el contrato HTTP permite escribir código predecible y depurar fallos de integración antes de que lleguen a producción.</p>
+
+    <div class="exercise">
+      <p class="inst">Ejercicio 1. Completa con la opción o término correcto.</p>
+      <div class="example">Ejemplo: <code>unknown</code> es más seguro que <code>any</code> porque obliga a <em>estrechar</em> el tipo antes de usarlo.</div>
+      <ol class="items">
+        <li>En TypeScript, para modelar un valor que puede ser <code>User</code> o <code>null</code> uso una unión: <span class="blank md"></span>.</li>
+        <li><code>interface</code> y <code>type</code> pueden describir objetos; para uniones/discriminadas suele ser más directo <span class="blank"></span>.</li>
+        <li><code>Promise.all</code> falla rápido si <span class="blank lg"></span>, mientras <code>Promise.allSettled</code> espera todos los resultados.</li>
+        <li>Un código HTTP adecuado para recurso creado es <span class="blank"></span> y para error de validación del cliente <span class="blank"></span>.</li>
+      </ol>
+    </div>
+
+    <div class="exercise">
+      <p class="inst">Ejercicio 2. Corrige los errores (si es correcto, escribe "Correcto").</p>
+      <ol class="items subitems">
+        <li><code>async function f(){ return fetch(url); }</code> y luego se usa sin <code>await</code> ni <code>.then</code> esperando el JSON. → <span class="line"></span></li>
+        <li><code>const data: any = await res.json();</code> se propaga por toda la app sin validación. → <span class="line"></span></li>
+        <li><code>JSON.stringify({a: undefined})</code> omite la clave <code>a</code>. → <span class="line"></span></li>
+        <li>Uso <code>===</code> en lugar de <code>==</code> para comparaciones en JS/TS. → <span class="line"></span></li>
+      </ol>
+    </div>
+
+    <div class="exercise">
+      <p class="inst">Ejercicio 3. Elige la opción correcta.</p>
+      <ol class="items subitems">
+        <li>Para tipar la respuesta de una API externa prefiero (confiar en <code>as Tipo</code> / validar con un esquema como Zod y luego inferir el tipo).</li>
+        <li><code>PUT</code> suele ser (idempotente / no idempotente) y <code>POST</code> para crear suele ser (idempotente / no idempotente).</li>
+        <li>En ESM en Node.js 20+ importo con (<code>require</code> / <code>import</code>) y declaro <code>"type": "module"</code> o extensión adecuada según el proyecto.</li>
+      </ol>
+    </div>
+
+    <div class="exercise">
+      <p class="inst">Ejercicio 4. Transforma el callback a <code>async/await</code> con manejo de errores.</p>
+      <pre>getUser(id, (err, user) =&gt; {
+  if (err) return cb(err);
+  getOrders(user.id, (err2, orders) =&gt; {
+    if (err2) return cb(err2);
+    cb(null, { user, orders });
+  });
+});</pre>
+      <span class="line"></span><span class="line"></span><span class="line"></span><span class="line"></span><span class="line"></span>
+    </div>
+
+    <div class="exercise">
+      <p class="inst">Ejercicio 5. Producción guiada. Escribe la firma TypeScript de una función que reciba <code>id: string</code> y devuelva una promesa con <code>User | null</code>.</p>
+      <span class="line"></span>
+    </div>
+  </section>
+
+  <section class="unit" id="n2">
+    <h2>Nivel 2 — Frontend: React 18+ y Next.js (App Router)</h2>
+    <p class="context">Separar responsabilidades entre UI, estado y servidor (Server/Client Components) mejora rendimiento, SEO y mantenibilidad.</p>
+
+    <div class="exercise">
+      <p class="inst">Ejercicio 1. Completa con el concepto correcto.</p>
+      <ol class="items">
+        <li>En React, un hook debe llamarse en el nivel superior del componente o de otro hook, nunca dentro de <span class="blank md"></span>.</li>
+        <li>Para evitar renders innecesarios por identidad de función puedo usar <span class="blank"></span> y para valores derivados costosos <span class="blank"></span>.</li>
+        <li>En Next.js App Router, por defecto un componente es <span class="blank"></span> Component; para usar estado/efectos del navegador añado <span class="blank md"></span>.</li>
+        <li>La prop especial <code>key</code> en listas debe ser <span class="blank lg"></span>.</li>
+      </ol>
+    </div>
+
+    <div class="exercise">
+      <p class="inst">Ejercicio 2. Corrige los errores o marca "Correcto".</p>
+      <ol class="items subitems">
+        <li><code>useEffect(() =&gt; { fetchData(); }, []);</code> y <code>fetchData</code> usa props/state sin declararlas en dependencias (y no está estabilizada). → <span class="line"></span></li>
+        <li>Mutar el estado directamente: <code>items.push(x); setItems(items);</code> → <span class="line"></span></li>
+        <li>En un Server Component puedo leer secretos de entorno del servidor sin exponerlos al cliente. → <span class="line"></span></li>
+        <li>Uso el índice del array como <code>key</code> en una lista que se reordena/filtra. → <span class="line"></span></li>
+      </ol>
+    </div>
+
+    <div class="exercise">
+      <p class="inst">Ejercicio 3. Elige la opción correcta.</p>
+      <ol class="items subitems">
+        <li>Para datos que deben ser siempre frescos en App Router uso (cache por defecto / <code>cache: 'no-store'</code> o revalidación adecuada).</li>
+        <li>Un formulario con validación en cliente y servidor debe (confiar solo en cliente / validar también en servidor).</li>
+        <li>Tailwind CSS promueve estilos (utility-first en el marcado / hojas CSS globales por componente siempre).</li>
+      </ol>
+    </div>
+
+    <div class="exercise">
+      <p class="inst">Ejercicio 4. Escenario. Describe en 2–3 pasos cómo mostrar una lista de pacientes: dónde haces fetch (server/client), cómo manejas loading y error.</p>
+      <span class="line"></span><span class="line"></span><span class="line"></span>
+    </div>
+  </section>
+
+  <section class="unit" id="n3">
+    <h2>Nivel 3 — Backend: Node.js, APIs REST, validación y errores</h2>
+    <p class="context">Un contrato claro (rutas, códigos, esquema) y manejo centralizado de errores hacen la API predecible para clientes y tests.</p>
+
+    <div class="exercise">
+      <p class="inst">Ejercicio 1. Completa.</p>
+      <ol class="items">
+        <li>Validar entrada en el borde de la API (p. ej. con Zod) evita propagar datos <span class="blank md"></span> al dominio.</li>
+        <li>Un middleware de errores en Express recibe <span class="blank"></span> argumentos, siendo el primero <code>err</code>.</li>
+        <li>Para paginación suelo exponer parámetros como <code>page/limit</code> u <code>offset/limit</code> y devolver metadatos como <span class="blank lg"></span>.</li>
+      </ol>
+    </div>
+
+    <div class="exercise">
+      <p class="inst">Ejercicio 2. Corrige o marca "Correcto".</p>
+      <ol class="items subitems">
+        <li>Devuelvo <code>200 OK</code> con <code>{ error: "..." }</code> cuando falla la validación. → <span class="line"></span></li>
+        <li>Hago <code>console.log(password, token)</code> en producción para depurar. → <span class="line"></span></li>
+        <li>Uso códigos de estado coherentes: 401 no autenticado, 403 sin permiso, 404 no encontrado. → <span class="line"></span></li>
+        <li>Capturo errores async y los paso a <code>next(err)</code> (o equivalente) para el handler central. → <span class="line"></span></li>
+      </ol>
+    </div>
+
+    <div class="exercise">
+      <p class="inst">Ejercicio 3. Elige la opción correcta.</p>
+      <ol class="items subitems">
+        <li>Para un recurso anidado de solo lectura, una ruta clara es (<code>GET /tenants/:t/orders</code> / <code>POST /getOrders</code>).</li>
+        <li>La idempotencia en reintentos de pago se apoya en (idempotency key / duplicar la petición sin control).</li>
+        <li>En Node.js, trabajo CPU-intensivo largo en el hilo principal (bloquea el event loop / es siempre recomendable).</li>
+      </ol>
+    </div>
+
+    <div class="exercise">
+      <p class="inst">Ejercicio 4. Escribe un ejemplo de respuesta JSON de error de validación (400) con estructura consistente.</p>
+      <span class="line"></span><span class="line"></span><span class="line"></span>
+    </div>
+  </section>
+
+  <section class="unit" id="n4">
+    <h2>Nivel 4 — Datos: PostgreSQL, SQL y Prisma</h2>
+    <p class="context">Modelar relaciones, constraints e índices correctos protege la integridad y el rendimiento a medida que crece el sistema.</p>
+
+    <div class="exercise">
+      <p class="inst">Ejercicio 1. Completa.</p>
+      <ol class="items">
+        <li>Una clave foránea garantiza <span class="blank md"></span> referencial entre tablas.</li>
+        <li>Para evitar duplicados lógicos en un campo (p. ej. email por tenant) uso una restricción <span class="blank"></span>.</li>
+        <li>Una transacción asegura propiedades ACID; ante fallo debo poder hacer <span class="blank"></span>.</li>
+      </ol>
+    </div>
+
+    <div class="exercise">
+      <p class="inst">Ejercicio 2. Corrige o marca "Correcto".</p>
+      <ol class="items subitems">
+        <li>Construyo SQL concatenando strings con input del usuario. → <span class="line"></span></li>
+        <li>Añado un índice en columnas usadas frecuentemente en <code>WHERE/JOIN</code> según el patrón de consulta. → <span class="line"></span></li>
+        <li>Uso <code>SELECT *</code> siempre en endpoints públicos sin necesidad. → <span class="line"></span></li>
+      </ol>
+    </div>
+
+    <div class="exercise">
+      <p class="inst">Ejercicio 3. Elige la opción correcta.</p>
+      <ol class="items subitems">
+        <li>Relación "un pedido tiene muchos ítems": (1:N / N:M sin tabla intermedia directa).</li>
+        <li>En Prisma, para actualizar y devolver el registro uso (<code>update</code> / <code>updateMany</code> cuando necesito el objeto único actualizado).</li>
+        <li>Un <code>LEFT JOIN</code> devuelve (todas las filas de la izquierda aunque no haya match / solo coincidencias).</li>
+      </ol>
+    </div>
+
+    <div class="exercise">
+      <p class="inst">Ejercicio 4. Escribe una consulta SQL conceptual: obtener órdenes de un <code>tenant_id</code> ordenadas por fecha descendente (máx. 20).</p>
+      <span class="line"></span><span class="line"></span>
+    </div>
+  </section>
+
+  <section class="unit" id="n5">
+    <h2>Nivel 5 — Seguridad: autenticación, autorización y hardening</h2>
+    <p class="context">Verificar identidad, limitar privilegios y proteger secretos reduce el impacto de errores y ataques comunes en aplicaciones web.</p>
+
+    <div class="exercise">
+      <p class="inst">Ejercicio 1. Completa.</p>
+      <ol class="items">
+        <li><span class="blank"></span> confirma quién es el usuario; <span class="blank"></span> define qué acciones puede realizar.</li>
+        <li>RBAC asigna permisos a través de <span class="blank"></span>.</li>
+        <li>Para contraseñas uso hashing adaptativo como <span class="blank"></span>, nunca texto plano ni hash rápido sin salt.</li>
+        <li>2FA/TOTP añade un segundo factor basado en <span class="blank md"></span>.</li>
+      </ol>
+    </div>
+
+    <div class="exercise">
+      <p class="inst">Ejercicio 2. Corrige o marca "Correcto".</p>
+      <ol class="items subitems">
+        <li>Confío en el <code>userId</code> que llega en el body para autorizar acciones sobre otro usuario. → <span class="line"></span></li>
+        <li>Aplico rate limiting en endpoints sensibles (login, recuperación). → <span class="line"></span></li>
+        <li>Incluyo secretos/JWT en logs o respuestas de error. → <span class="line"></span></li>
+        <li>Configuro cabeceras de seguridad (p. ej. con Helmet) y CORS restrictivo según necesidad. → <span class="line"></span></li>
+      </ol>
+    </div>
+
+    <div class="exercise">
+      <p class="inst">Ejercicio 3. Elige la opción correcta.</p>
+      <ol class="items subitems">
+        <li>En multi-tenant, cada consulta de datos debe filtrar por (tenant del token/sesión verificado / tenant enviado libremente por el cliente).</li>
+        <li>Un access token debe tener vida (corta / muy larga sin rotación).</li>
+        <li>Para comparar firmas/HMAC uso comparación en tiempo constante cuando la librería lo requiere para evitar (timing attacks / mejores caches).</li>
+      </ol>
+    </div>
+
+    <div class="exercise">
+      <p class="inst">Ejercicio 4. Escenario. Lista 3 controles mínimos para un endpoint <code>POST /api/admin/users</code>.</p>
+      <span class="line"></span><span class="line"></span><span class="line"></span>
+    </div>
+  </section>
+
+  <section class="unit" id="n6">
+    <h2>Nivel 6 — Calidad: testing, cobertura y automatización</h2>
+    <p class="context">Pruebas rápidas y confiables permiten refactorizar y entregar cambios con evidencia, no con suposiciones.</p>
+
+    <div class="exercise">
+      <p class="inst">Ejercicio 1. Completa.</p>
+      <ol class="items">
+        <li>Una prueba <span class="blank"></span> verifica una unidad aislada; una de <span class="blank"></span> verifica la colaboración entre módulos/capas.</li>
+        <li>En tests HTTP de API con Supertest ejercito rutas sin necesidad de <span class="blank lg"></span>.</li>
+        <li>La cobertura mide líneas/ramas ejecutadas, pero no garantiza <span class="blank lg"></span>.</li>
+      </ol>
+    </div>
+
+    <div class="exercise">
+      <p class="inst">Ejercicio 2. Corrige o marca "Correcto".</p>
+      <ol class="items subitems">
+        <li>Mis tests dependen del orden de ejecución y de datos compartidos mutables entre casos. → <span class="line"></span></li>
+        <li>Uso mocks para aislar dependencias externas lentas o no deterministas (red, reloj, terceros). → <span class="line"></span></li>
+        <li>Un test que a veces pasa y a veces falla (flaky) se ignora permanentemente sin investigar. → <span class="line"></span></li>
+      </ol>
+    </div>
+
+    <div class="exercise">
+      <p class="inst">Ejercicio 3. Elige la opción correcta.</p>
+      <ol class="items subitems">
+        <li>El patrón Arrange-Act-Assert ayuda a (estructurar pruebas / evitar asserts).</li>
+        <li>Para validar un bug arreglado, escribo primero una prueba que (falle y luego pase / pase desde el inicio).</li>
+        <li>Vitest/Jest permiten ejecutar pruebas en (watch/CI / solo manual sin automatización).</li>
+      </ol>
+    </div>
+
+    <div class="exercise">
+      <p class="inst">Ejercicio 4. Producción. Escribe un caso de prueba (descripción + pasos lógicos) para "login rechaza contraseña inválida con 401".</p>
+      <span class="line"></span><span class="line"></span><span class="line"></span>
+    </div>
+  </section>
+
+  <section class="unit" id="n7">
+    <h2>Nivel 7 — DevOps y entrega: Docker, CI/CD y observabilidad</h2>
+    <p class="context">Empaquetar, validar y desplegar de forma repetible reduce diferencias entre entornos y acelera la detección de fallos.</p>
+
+    <div class="exercise">
+      <p class="inst">Ejercicio 1. Completa.</p>
+      <ol class="items">
+        <li>Un <code>Dockerfile</code> define la imagen; <code>docker-compose</code> facilita orquestar <span class="blank md"></span> en local.</li>
+        <li>En CI ejecuto automáticamente pasos como lint, <span class="blank"></span> y <span class="blank"></span> antes de desplegar.</li>
+        <li>Logs, métricas y trazas conforman los pilares de la <span class="blank"></span>.</li>
+      </ol>
+    </div>
+
+    <div class="exercise">
+      <p class="inst">Ejercicio 2. Corrige o marca "Correcto".</p>
+      <ol class="items subitems">
+        <li>Construyo imágenes con secretos hardcodeados en el <code>Dockerfile</code>. → <span class="line"></span></li>
+        <li>Uso <code>.dockerignore</code> para excluir <code>node_modules</code>, artefactos y archivos sensibles del contexto. → <span class="line"></span></li>
+        <li>Etiqueto imágenes y artefactos para poder reproducir despliegues y hacer rollback. → <span class="line"></span></li>
+      </ol>
+    </div>
+
+    <div class="exercise">
+      <p class="inst">Ejercicio 3. Elige la opción correcta.</p>
+      <ol class="items subitems">
+        <li>Un pipeline verde significa que (todos los pasos definidos pasaron / la app no tiene bugs).</li>
+        <li>Variables de entorno por ambiente (dev/stage/prod) deben (diferenciarse / compartirse con mismos secretos).</li>
+        <li>Health checks permiten a orquestadores (detectar instancias no saludables / reemplazar pruebas).</li>
+      </ol>
+    </div>
+
+    <div class="exercise">
+      <p class="inst">Ejercicio 4. Ordena un flujo CI/CD típico (numera 1–5):</p>
+      <ul>
+        <li>___ Desplegar a entorno destino</li>
+        <li>___ Instalar dependencias y construir</li>
+        <li>___ Push/PR dispara pipeline</li>
+        <li>___ Ejecutar tests y checks</li>
+        <li>___ Publicar artefacto/imagen</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="answers">
+    <h2>Solucionario</h2>
+    <p class="note">Respuestas de referencia. En ejercicios de producción/escenario se ofrecen soluciones modelo.</p>
+
+    <h3>Nivel 1</h3>
+    <div class="key">
+      <p><strong>Ej. 1:</strong> 1) <code>User | null</code> 2) <code>type</code> 3) una de las promesas se rechaza 4) <code>201</code> y <code>400</code> (o 422 según convención).</p>
+      <p><strong>Ej. 2:</strong> a) Error: falta consumir la promesa/respuesta (<code>await (await fetch).json()</code> o equivalente). b) Error: tipado/validación débil; preferir <code>unknown</code> + validación. c) Correcto. d) Correcto.</p>
+      <p><strong>Ej. 3:</strong> a) validar con esquema (p. ej. Zod) e inferir tipo. b) idempotente / no idempotente. c) <code>import</code>.</p>
+      <p><strong>Ej. 4 (modelo):</strong> <code>async function load(id){ try { const user = await getUser(id); const orders = await getOrders(user.id); return {user, orders}; } catch (e) { throw e; } }</code> (o con manejo específico).</p>
+      <p><strong>Ej. 5:</strong> <code>function getUser(id: string): Promise&lt;User | null&gt;</code> (o equivalente).</p>
+    </div>
+
+    <h3>Nivel 2</h3>
+    <div class="key">
+      <p><strong>Ej. 1:</strong> 1) condicionales/bucles/funciones anidadas 2) <code>useCallback</code> y <code>useMemo</code> 3) Server / <code>"use client"</code> 4) estable y única entre hermanos (id).</p>
+      <p><strong>Ej. 2:</strong> a) Error: dependencias incompletas/closure obsoleta. b) Error: mutación; crear nuevo array/objeto. c) Correcto. d) Error/riesgo en listas dinámicas; usar id estable.</p>
+      <p><strong>Ej. 3:</strong> a) no-store/revalidación según caso. b) validar también en servidor. c) utility-first en el marcado.</p>
+      <p><strong>Ej. 4 (modelo):</strong> Fetch en Server Component/route según caso; pasar datos a UI; manejar estado de carga/error con loading UI, boundaries o estado cliente si aplica.</p>
+    </div>
+
+    <h3>Nivel 3</h3>
+    <div class="key">
+      <p><strong>Ej. 1:</strong> 1) inválidos/no confiables 2) cuatro <code>(err, req, res, next)</code> 3) <code>total/page/pageSize</code> (u offset/limit equivalentes).</p>
+      <p><strong>Ej. 2:</strong> a) Error: usar 400/422. b) Error: exposición de secretos. c) Correcto. d) Correcto.</p>
+      <p><strong>Ej. 3:</strong> a) <code>GET /tenants/:t/orders</code>. b) idempotency key. c) bloquea el event loop.</p>
+      <p><strong>Ej. 4 (modelo):</strong> <code>{ "error": { "code": "VALIDATION_ERROR", "message": "Invalid input", "details": [...] } }</code>.</p>
+    </div>
+
+    <h3>Nivel 4</h3>
+    <div class="key">
+      <p><strong>Ej. 1:</strong> 1) integridad 2) <code>UNIQUE</code> (simple o compuesta) 3) <code>ROLLBACK</code>.</p>
+      <p><strong>Ej. 2:</strong> a) Error: SQL injection; usar parámetros/prepared statements/ORM seguro. b) Correcto. c) Error/mala práctica: seleccionar solo columnas necesarias.</p>
+      <p><strong>Ej. 3:</strong> a) 1:N. b) <code>update</code>. c) todas las filas de la izquierda aunque no haya match.</p>
+      <p><strong>Ej. 4 (modelo):</strong> <code>SELECT * FROM orders WHERE tenant_id = $1 ORDER BY created_at DESC LIMIT 20;</code></p>
+    </div>
+
+    <h3>Nivel 5</h3>
+    <div class="key">
+      <p><strong>Ej. 1:</strong> 1) Autenticación / autorización 2) roles 3) bcrypt (o Argon2/scrypt) 4) algo que tienes/tiempo (código TOTP de un secreto compartido).</p>
+      <p><strong>Ej. 2:</strong> a) Error: confiar en input; derivar identidad/permisos del contexto autenticado. b) Correcto. c) Error. d) Correcto.</p>
+      <p><strong>Ej. 3:</strong> a) tenant del token/sesión verificado. b) corta. c) timing attacks.</p>
+      <p><strong>Ej. 4 (modelo):</strong> Autenticación válida, verificación de rol/permiso admin (RBAC), y validación + aislamiento/registro (rate limit, auditoría) según política.</p>
+    </div>
+
+    <h3>Nivel 6</h3>
+    <div class="key">
+      <p><strong>Ej. 1:</strong> 1) unitaria / integración 2) levantar un servidor real externo manualmente 3) ausencia de defectos ni calidad de los casos.</p>
+      <p><strong>Ej. 2:</strong> a) Error: tests deben ser aislados y deterministas. b) Correcto. c) Error: investigar y corregir la causa.</p>
+      <p><strong>Ej. 3:</strong> a) estructurar pruebas. b) falle y luego pase. c) watch/CI.</p>
+      <p><strong>Ej. 4 (modelo):</strong> Arrange: usuario existente y credencial inválida; Act: POST /login; Assert: status 401, sin token, mensaje genérico.</p>
+    </div>
+
+    <h3>Nivel 7</h3>
+    <div class="key">
+      <p><strong>Ej. 1:</strong> 1) múltiples servicios/contenedores 2) tests / build (o lint/typecheck) 3) observabilidad.</p>
+      <p><strong>Ej. 2:</strong> a) Error: usar secrets/env/gestores de secretos. b) Correcto. c) Correcto.</p>
+      <p><strong>Ej. 3:</strong> a) todos los pasos definidos pasaron. b) diferenciarse. c) detectar instancias no saludables.</p>
+      <p><strong>Ej. 4:</strong> 1) Push/PR dispara pipeline 2) Instalar dependencias y construir 3) Ejecutar tests y checks 4) Publicar artefacto/imagen 5) Desplegar a entorno destino.</p>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>

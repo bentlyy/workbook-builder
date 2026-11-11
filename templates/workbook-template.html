@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{TITULO}}</title>
+<style>
+  :root{--ink:#1a1a1a;--muted:#555;--accent:#0f766e;--line:#cbd5e1;--bg:#fff;--soft:#f8fafc;}
+  *{box-sizing:border-box} body{font-family:Georgia,"Times New Roman",serif;color:var(--ink);background:var(--bg);margin:0;line-height:1.5}
+  .page{max-width:800px;margin:0 auto;padding:40px 48px}
+  h1,h2,h3{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:#0b3b36}
+  h1{font-size:2rem;margin:0 0 .25rem} .subtitle{color:var(--muted);margin-bottom:1.5rem}
+  h2{font-size:1.35rem;border-bottom:2px solid var(--accent);padding-bottom:.25rem;margin-top:2rem}
+  h3{font-size:1.05rem;margin:1.25rem 0 .25rem} .context{font-style:italic;color:var(--muted);margin:.25rem 0 1rem}
+  .exercise{margin:1rem 0 1.25rem} .exercise .inst{font-weight:600;font-family:system-ui,sans-serif;margin-bottom:.4rem}
+  ol.items{margin:.25rem 0 .25rem 1.25rem;padding:0} ol.items li{margin:.35rem 0}
+  .blank{display:inline-block;min-width:9ch;border-bottom:1px solid var(--ink);height:1.1em;vertical-align:baseline}
+  .blank.lg{min-width:28ch} .blank.xl{display:block;width:100%;min-height:1.6em;margin:.25rem 0}
+  .example{background:var(--soft);border-left:3px solid var(--accent);padding:.5rem .75rem;margin:.5rem 0;font-size:.95rem}
+  code{font-family:ui-monospace,Consolas,monospace;background:#f1f5f9;padding:.05rem .3rem;border-radius:3px;font-size:.92em}
+  pre{background:#0f172a;color:#e2e8f0;padding:.75rem 1rem;border-radius:6px;overflow:auto;font-size:.85rem}
+  .options{color:var(--muted)} .answers{page-break-before:always}
+  .answers h2{border-color:#334155} .key{font-family:system-ui,sans-serif;font-size:.95rem}
+  .key li{margin:.3rem 0} .tag{display:inline-block;font-size:.75rem;background:#e2e8f0;color:#334155;padding:.05rem .4rem;border-radius:999px;margin-left:.35rem;vertical-align:middle}
+  .toc ul{columns:2;gap:2rem} .toc li{margin:.25rem 0}
+  @media print{
+    .page{max-width:none;padding:0 8mm} body{font-size:11pt}
+    h2{page-break-after:avoid} .exercise{page-break-inside:avoid} .unit{page-break-before:always}
+    .unit:first-of-type{page-break-before:auto} a{color:inherit;text-decoration:none}
+  }
+  @page{margin:16mm}
+</style>
+</head>
+<body>
+<div class="page">
+  <header>
+    <h1>{{TITULO}}</h1>
+    <p class="subtitle">{{SUBTITULO}}</p>
+  </header>
+  <!-- contenido -->
+  <section class="answers">
+    <h2>Solucionario</h2>
+    <!-- claves -->
+  </section>
+</div>
+</body>
+</html>

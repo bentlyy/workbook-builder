@@ -1,0 +1,31 @@
+<p class="u">Unidad 13. PostgreSQL y modelado relacional</p>
+<p><strong>Ej. 1:</strong> 1) clave primaria 2) clave foránea / referencial 3) duplicados 4) muchos 5) intermedia 6) redundancia</p>
+<p><strong>Ej. 2:</strong> 1) columna/tabla 2) por defecto 3) escrituras 4) tenant_id y fecha 5) zonas horarias 6) padre</p>
+<p><strong>Ej. 3:</strong> a) Error b) Error c) Correcto d) Omisión riesgosa e) Mala práctica f) Correcto</p>
+<p><strong>Ej. 4:</strong> 1) 1:N 2) N:M 3) UNIQUE(tenant_id,email) 4) numeric 5) deleted_at 6) (tenant_id, created_at)</p>
+<p><strong>Ej. 5:</strong> 1) auditoría 2) considerar según caso 3) tenant_id + aislamiento 4) con criterio 5) jsonb cuando aporta 6) versionadas</p>
+<p><strong>Ej. 6:</strong> 1) id PK, numeric, timestamptz 2) user_id FK 3) CHECK(total&gt;=0) 4) CREATE INDEX 5) tabla users + FK 6) tenant_id y constraints/índices</p>
+<p><strong>Ej. 7:</strong> 1) a,b,c,d 2) 1-C,2-D,3-B,4-A 3) 1-B,2-A,3-C 4) a,b,c,d 5) 1-C,2-B,3-A 6) a,b,c,d</p>
+<p><strong>Ej. 8:</strong> 1) tenants,patients,professionals,appointments 2) tenant_id + filtros/constraints 3) unique(professional_id,start_time) 4) (tenant_id,date) 5) controles acceso/cifrado/cumplimiento 6) soft delete</p>
+<p><strong>Ej. 9:</strong> 1) PKs, FK tenant_id, UNIQUE(tenant_id,email) 2) índice/constraint compuesto 3) integridad, tipos adecuados, migraciones versionadas</p>
+<p><strong>Ej. 10:</strong> 1) concepto central del tema 2) probar/validar 3) aplicar UNIQUE(tenant_id,email) 4) alternativa segura a float para dinero 5) manejo explícito de índice (tenant_id,created_at) 6) evidencia: tests/logs/métricas</p>
+<p><strong>Ej. 11:</strong> a) Error b) Correcto c) Error d) Correcto e) Error/riesgo f) Correcto</p>
+<p><strong>Ej. 12:</strong> 1) definir contrato 2) retry con backoff 3) versionar/migrar 4) mínimo privilegio 5) medir y optimizar 6) CI con gates</p>
+<p><strong>Ej. 13:</strong> 1) validar inputs/estados 2) variables de entorno/config 3) try/catch y errores tipados/consistentes 4) observabilidad 5) extraer módulo/capa 6) manejar límite explícitamente</p>
+<p><strong>Ej. 14:</strong> Escenario: Se requiere aislamiento por tenant, integridad de citas y consultas eficientes por fecha. Debes proponer una solución alineada a buenas prácticas de modelado PostgreSQL considerando mantenibilidad, seguridad y operación en producción.</p>
+<p><strong>Ej. 15:</strong> 1) implementación/esquema correcto y claro 2) casos cubren éxito, fallo, límite y seguridad 3) criterios medibles 4) riesgos y mitigaciones 5) docs/operación 6) mejoras incrementales</p>
+<p><strong>Ej. 16:</strong> Solución modelo: delimitar alcance, listar 3+ problemas con causa, proponer diseño alineado a modelado PostgreSQL, ejecutar pasos incrementales y validar con pruebas/observación; considerar seguridad, errores y mantenibilidad.</p>
+<p><strong>Ej. 17:</strong> Modelo: recolectar evidencia, formular hipótesis, aislar con reproducción, mitigar (rollback/flag/limit), corregir causa raíz, agregar tests y monitoreo/alertas.</p>
+<p><strong>Ej. 18:</strong> Modelo: contrato explícito, flujo por componentes, requisitos no funcionales, criterios medibles y runbook breve.</p>
+<p><strong>Ej. 19:</strong> Modelo: implementación coherente, 5 verificaciones, fixtures claros, señales operativas y mejora incremental.</p>
+<p><strong>Notas ampliadas U13:</strong> criterios de evaluación — corrección técnica, manejo de errores/bordes, seguridad, claridad de contratos, pruebas y observabilidad. Acepta variantes equivalentes bien justificadas.</p>
+
+<div class="ans-detail"><p><strong>Guía de corrección detallada U13:</strong></p>
+<ul>
+<li><strong>Completar/transformar:</strong> aceptar sinónimos técnicos correctos y variantes equivalentes (sintaxis, orden, comillas) si respetan semántica, tipos y seguridad.</li>
+<li><strong>Corregir:</strong> identificar error + causa + arreglo válido; "Correcto" solo si no hay fallo. Valorar explicación breve.</li>
+<li><strong>Elegir:</strong> además de la opción, reconocer por qué los distractores fallan (seguridad, contrato, consistencia, rendimiento).</li>
+<li><strong>Escenarios/casos/RCA:</strong> incluir contexto y supuestos, ≥3 hallazgos/riesgos con causa y evidencia, decisiones con trade-offs, pasos ordenados, verificación (tests/métricas/logs) y mitigación/rollback.</li>
+<li><strong>Producción/diseño:</strong> contrato claro (entradas/salidas/errores), manejo de bordes y errores, seguridad (authn/authz, validación, secretos, tenant), observabilidad y criterios de aceptación medibles.</li>
+<li><strong>Rúbrica (0-2):</strong> corrección técnica, seguridad y manejo de bordes, calidad de pruebas/verificación, claridad y operabilidad. 0=incorrecto, 1=parcial, 2=correcto y justificado.</li>
+</ul></div>

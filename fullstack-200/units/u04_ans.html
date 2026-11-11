@@ -1,0 +1,31 @@
+<p class="u">Unidad 4. HTTP, REST y diseño de contratos de API</p>
+<p><strong>Ej. 1:</strong> 1) POST / PUT 2) PATCH 3) 201 / 400 4) 401 / 403 5) 404 / 409 6) idempotente</p>
+<p><strong>Ej. 2:</strong> 1) recursos 2) anidado 3) page/limit, total/page/pageSize 4) cursor 5) /v1 6) details</p>
+<p><strong>Ej. 3:</strong> a) Error: POST /users b) Error: 404 c) Correcto d) Error: 403 e) Correcto f) Error: fallo de autorización</p>
+<p><strong>Ej. 4:</strong> 1) GET /products/10 2) idempotency key 3) GET /orders?status=paid 4) DELETE/204 5) 200 con array vacío 6) Content-Type: application/json</p>
+<p><strong>Ej. 5:</strong> 1) ISO 8601 2) detalles por campo 3) límite y máximo 4) versionar/migrar 5) consistente 6) 202 + job</p>
+<p><strong>Ej. 6:</strong> 1) POST /auth/login o /sessions 2) DELETE /users/5 3) {error:{code,message,details}} 4) page/limit o cursor 5) idempotency key 6) /api/spare-parts</p>
+<p><strong>Ej. 7:</strong> 1) a,b,c,d 2) 1-B,2-C,3-A,4-D 3) 1-D,2-B,3-C,4-A 4) a,b,c,d 5) 1-B,2-C,3-A 6) a,b,d,c</p>
+<p><strong>Ej. 8:</strong> 1) POST /tenants/t1/bookings 2) 409 3) idempotency key 4) date,status,page,limit 5) auth y pertenencia al tenant 6) 400/404 con code,message,details</p>
+<p><strong>Ej. 9:</strong> 1) GET /workshops/{id}/mechanics 200/403/404 2) {data:[...],meta:{page,limit,total}} 3) recursos claros, códigos coherentes, errores consistentes, versionado</p>
+<p><strong>Ej. 10:</strong> 1) concepto central del tema 2) probar/validar 3) aplicar idempotency key 4) alternativa segura a GET /doAction 5) manejo explícito de paginación cursor 6) evidencia: tests/logs/métricas</p>
+<p><strong>Ej. 11:</strong> a) Error b) Correcto c) Error d) Correcto e) Error/riesgo f) Correcto</p>
+<p><strong>Ej. 12:</strong> 1) definir contrato 2) retry con backoff 3) versionar/migrar 4) mínimo privilegio 5) medir y optimizar 6) CI con gates</p>
+<p><strong>Ej. 13:</strong> 1) validar inputs/estados 2) variables de entorno/config 3) try/catch y errores tipados/consistentes 4) observabilidad 5) extraer módulo/capa 6) manejar límite explícitamente</p>
+<p><strong>Ej. 14:</strong> Escenario: Partners exigen contratos estables, paginación, rate limits y errores consistentes con versionado. Debes proponer una solución alineada a buenas prácticas de contratos REST considerando mantenibilidad, seguridad y operación en producción.</p>
+<p><strong>Ej. 15:</strong> 1) implementación/esquema correcto y claro 2) casos cubren éxito, fallo, límite y seguridad 3) criterios medibles 4) riesgos y mitigaciones 5) docs/operación 6) mejoras incrementales</p>
+<p><strong>Ej. 16:</strong> Solución modelo: delimitar alcance, listar 3+ problemas con causa, proponer diseño alineado a diseño REST, ejecutar pasos incrementales y validar con pruebas/observación; considerar seguridad, errores y mantenibilidad.</p>
+<p><strong>Ej. 17:</strong> Modelo: recolectar evidencia, formular hipótesis, aislar con reproducción, mitigar (rollback/flag/limit), corregir causa raíz, agregar tests y monitoreo/alertas.</p>
+<p><strong>Ej. 18:</strong> Modelo: contrato explícito, flujo por componentes, requisitos no funcionales, criterios medibles y runbook breve.</p>
+<p><strong>Ej. 19:</strong> Modelo: implementación coherente, 5 verificaciones, fixtures claros, señales operativas y mejora incremental.</p>
+<p><strong>Notas ampliadas U4:</strong> criterios de evaluación — corrección técnica, manejo de errores/bordes, seguridad, claridad de contratos, pruebas y observabilidad. Acepta variantes equivalentes bien justificadas.</p>
+
+<div class="ans-detail"><p><strong>Guía de corrección detallada U4:</strong></p>
+<ul>
+<li><strong>Completar/transformar:</strong> aceptar sinónimos técnicos correctos y variantes equivalentes (sintaxis, orden, comillas) si respetan semántica, tipos y seguridad.</li>
+<li><strong>Corregir:</strong> identificar error + causa + arreglo válido; "Correcto" solo si no hay fallo. Valorar explicación breve.</li>
+<li><strong>Elegir:</strong> además de la opción, reconocer por qué los distractores fallan (seguridad, contrato, consistencia, rendimiento).</li>
+<li><strong>Escenarios/casos/RCA:</strong> incluir contexto y supuestos, ≥3 hallazgos/riesgos con causa y evidencia, decisiones con trade-offs, pasos ordenados, verificación (tests/métricas/logs) y mitigación/rollback.</li>
+<li><strong>Producción/diseño:</strong> contrato claro (entradas/salidas/errores), manejo de bordes y errores, seguridad (authn/authz, validación, secretos, tenant), observabilidad y criterios de aceptación medibles.</li>
+<li><strong>Rúbrica (0-2):</strong> corrección técnica, seguridad y manejo de bordes, calidad de pruebas/verificación, claridad y operabilidad. 0=incorrecto, 1=parcial, 2=correcto y justificado.</li>
+</ul></div>

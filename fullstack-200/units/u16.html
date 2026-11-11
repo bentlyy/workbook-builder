@@ -1,0 +1,231 @@
+<section class="unit" id="u16">
+<h2>Unidad 16. Autenticación y sesiones: JWT, refresh tokens y 2FA/TOTP</h2>
+<p class="context">La autenticación establece la identidad del usuario y es la base de la seguridad en aplicaciones web. Implementarla correctamente implica gestionar credenciales, tokens, sesiones y segundo factor sin exponer información sensible. Esta unidad practica flujos con JWT, access/refresh tokens, almacenamiento seguro, rotación y fundamentos de 2FA/TOTP aplicados a APIs y clientes modernos.</p>
+<div class="exercise">
+<h3>Ejercicio 1. Completar: fundamentos de autenticación y tokens</h3>
+<p class="inst">Completa con el concepto correcto.</p>
+<div class="example"><strong>Ejemplo:</strong> Ejemplo: La autenticación responde 'quién eres'; la autorización responde 'qué puedes hacer'.</div>
+<ol class='items'>
+<li>La autenticación verifica la <span class="blank md"></span> del usuario; la autorización verifica sus <span class="blank md"></span>.</li>
+<li>Un access token suele tener vida <span class="blank sm"></span> para reducir riesgo ante exposición.</li>
+<li>Un refresh token permite obtener nuevos access tokens sin reingresar <span class="blank md"></span>.</li>
+<li>Los JWT deben ser <span class="blank md"></span> (verificar firma) antes de confiar en sus claims.</li>
+<li>Guardar secretos de firma en <span class="blank lg"></span> y rotarlos cuando sea necesario es buena práctica.</li>
+<li>La expiración se controla con claims como <span class="blank sm"></span> (exp) y se valida en cada petición.</li>
+</ol>
+</div>
+<div class="exercise">
+<h3>Ejercicio 2. Completar: sesiones, almacenamiento y 2FA</h3>
+<p class="inst">Completa los conceptos.</p>
+<ol class='items'>
+<li>Almacenar tokens en <code>localStorage</code> expone a robo vía <span class="blank md"></span> si hay XSS.</li>
+<li>Cookies <code>HttpOnly</code> ayudan a mitigar acceso desde <span class="blank md"></span>.</li>
+<li>La rotación de refresh tokens invalida el token anterior para reducir impacto de <span class="blank md"></span>.</li>
+<li>2FA/TOTP añade un factor basado en tiempo usando un <span class="blank md"></span> compartido.</li>
+<li>Tras habilitar 2FA, códigos de recuperación deben almacenarse de forma <span class="blank md"></span>.</li>
+<li>Un logout efectivo debe invalidar/rotar <span class="blank md"></span> según la estrategia de sesión.</li>
+</ol>
+</div>
+<div class="exercise">
+<h3>Ejercicio 3. Corregir errores (si es correcto, escribe "Correcto")</h3>
+<p class="inst">Corrige o marca "Correcto".</p>
+<ol class='items'>
+<li>Confiar en el payload del JWT sin verificar la firma. → <span class="line"></span></li>
+<li>Usar el mismo secreto JWT en dev y producción. → <span class="line"></span></li>
+<li>Emitir access tokens de larga duración sin mecanismo de revocación/rotación. → <span class="line"></span></li>
+<li>Implementar rate limiting y protección contra fuerza bruta en login. → <span class="line"></span></li>
+<li>Registrar contraseñas o tokens en logs. → <span class="line"></span></li>
+<li>Validar issuer/audience/exp cuando corresponda. → <span class="line"></span></li>
+</ol>
+</div>
+<div class="exercise">
+<h3>Ejercicio 4. Elegir la opción correcta</h3>
+<p class="inst">Elige la alternativa adecuada.</p>
+<ol class='items'>
+<li>Hash de contraseñas: (<code>bcrypt/argon2</code> / <code>MD5</code> / <code>texto plano</code>).</li>
+<li>Access token comprometido: impacto menor si (<code>vida corta</code> / <code>vida de 30 días</code>).</li>
+<li>Enviar token al API: cabecera (<code>Authorization: Bearer &lt;token&gt;</code> / <code>X-Password</code>).</li>
+<li>Refresh token reuse detectado: (<code>revocar sesión/cadena</code> / <code>ignorar</code>).</li>
+<li>2FA código: depende de (<code>tiempo y secreto</code> / <code>solo username</code>).</li>
+<li>Comparación de secretos/HMAC: usar (<code>comparación segura/constante cuando aplique</code> / <code>== en todo contexto sensible sin cuidado</code>).</li>
+</ol>
+</div>
+<div class="exercise">
+<h3>Ejercicio 5. Elegir/decisión de sesión</h3>
+<p class="inst">Selecciona la mejor decisión.</p>
+<ol class='items'>
+<li>Almacenamiento de sesión en SPA: (<code>evaluar HttpOnly cookies + CSRF</code> / <code>localStorage sin mitigaciones</code>).</li>
+<li>Rotación de refresh: (<code>habilitar y detectar reuse</code> / <code>nunca rotar</code>).</li>
+<li>Mensajes de login fallido: (<code>genéricos</code> / <code>revelar si el email existe</code>).</li>
+<li>Bloqueo tras intentos fallidos: (<code>aplicar límites/backoff</code> / <code>permitir infinitos</code>).</li>
+<li>Recuperación de cuenta: (<code>tokens de un uso y expiración</code> / <code>enlaces permanentes</code>).</li>
+<li>Cierre de sesión global: (<code>invalidar refresh/sesiones</code> / <code>solo borrar UI</code>).</li>
+</ol>
+</div>
+<div class="exercise">
+<h3>Ejercicio 6. Transformar: fortalecer flujo de autenticación</h3>
+<p class="inst">Transforma según se indique.</p>
+<ol class='items'>
+<li>Login devuelve token sin expiración → añade claims/estrategia: <span class="line"></span></li>
+<li>Password comparada en texto plano → hashing/verificación correcta: <span class="line"></span></li>
+<li>Refresh token sin rotación → describe flujo con rotación: <span class="line"></span><span class="line"></span></li>
+<li>Middleware que no verifica firma → corrección: <span class="line"></span></li>
+<li>Respuesta login 'usuario no existe' → respuesta segura: <span class="line"></span></li>
+<li>Habilitar 2FA: pasos básicos (alta/verificación/uso): <span class="line"></span><span class="line"></span><span class="line"></span></li>
+</ol>
+</div>
+<div class="exercise">
+<h3>Ejercicio 7. Reordenar/relacionar: flujos de auth</h3>
+<p class="inst">Ordena o relaciona.</p>
+<ol class='items'>
+<li>Login: (a) validar credenciales (b) emitir tokens (c) responder (d) cliente usa access token). → <span class="line"></span></li>
+<li>1)access 2)refresh 3)TOTP con A)segundo factor B)acceso corto C)renovar sesión. → <span class="line"></span></li>
+<li>Refresh con rotación: (a) enviar refresh (b) validar/no reuse (c) emitir nuevo par (d) invalidar anterior). → <span class="line"></span></li>
+<li>1)401 2)403 3)2FA requerido con A)falta factor B)sin auth C)sin permiso. → <span class="line"></span></li>
+<li>2FA setup: (a) generar secreto (b) mostrar QR (c) verificar código (d) activar). → <span class="line"></span></li>
+<li>1)XSS 2)CSRF 3)brute force con A)tokens en acciones B)robo en cliente C)intentos masivos. → <span class="line"></span></li>
+</ol>
+</div>
+<div class="exercise">
+<h3>Ejercicio 8. Escenario: acceso a panel administrativo</h3>
+<p class="inst">Responde al escenario.</p>
+<div class="example"><strong>Ejemplo:</strong> Escenario: un panel administrativo para clínicas requiere login seguro, sesiones persistentes moderadas y 2FA para roles sensibles. Se detectaron intentos de fuerza bruta y tokens robados en un incidente previo.</div>
+<ol class='items'>
+<li>Política de expiración para access y refresh tokens: <span class="line"></span></li>
+<li>¿Dónde almacenarías tokens en el cliente y por qué? <span class="line"></span><span class="line"></span></li>
+<li>Controles ante fuerza bruta en login (3): <span class="line"></span><span class="line"></span></li>
+<li>Flujo al detectar reuse de refresh token: <span class="line"></span></li>
+<li>¿Qué roles exigirían 2FA y cuándo solicitarlo? <span class="line"></span><span class="line"></span></li>
+<li>3 eventos de seguridad a auditar: <span class="line"></span><span class="line"></span></li>
+</ol>
+</div>
+<div class="exercise">
+<h3>Ejercicio 9. Producción guiada</h3>
+<p class="inst">Escribe soluciones breves.</p>
+<ol class='items'>
+<li>Pseudocódigo de verificación JWT en middleware (firma y exp). <span class="line"></span><span class="line"></span><span class="line"></span></li>
+<li>Estructura de respuesta de login con access/refresh y flag 2FA. <span class="line"></span><span class="line"></span></li>
+<li>3 reglas de autenticación segura para producción. <span class="line"></span><span class="line"></span><span class="line"></span></li>
+</ol>
+</div>
+<div class="exercise">
+<h3>Ejercicio 10. Completar avanzado: autenticación JWT/2FA</h3>
+<p class="inst">Completa con el término, API o práctica correcta (profundización).</p>
+<ol class='items'>
+<li>Un concepto clave para robustez en autenticación JWT/2FA es <span class="blank lg"></span>, porque reduce fallos en producción.</li>
+<li>Antes de desplegar cambios relacionados se debe <span class="blank lg"></span> (verificación recomendada).</li>
+<li>Usar <code>rotación de refresh</code> correctamente permite <span class="blank lg"></span> cuando el contexto lo requiere.</li>
+<li>Una mala práctica frecuente es <code>access token largo</code>; en su lugar conviene <span class="blank lg"></span>.</li>
+<li>Para casos límite como verificación TOTP la estrategia adecuada es <span class="blank lg"></span>.</li>
+<li>Una señal de implementación madura incluye <span class="blank lg"></span> (observabilidad, pruebas o métricas).</li>
+</ol>
+</div>
+<div class="exercise">
+<h3>Ejercicio 11. Corregir avanzado (marca "Correcto" si aplica)</h3>
+<p class="inst">Analiza decisiones típicas e identifica errores sutiles.</p>
+<ol class='items'>
+<li>Omitir validación o controles en el borde del sistema. → <span class="line"></span></li>
+<li>Registrar contexto suficiente (sin secretos) para diagnosticar fallos. → <span class="line"></span></li>
+<li>Aplicar una solución sin considerar impacto en seguridad o datos. → <span class="line"></span></li>
+<li>Automatizar pruebas y checks relevantes para el cambio. → <span class="line"></span></li>
+<li>Usar configuraciones iguales en todos los entornos sin control. → <span class="line"></span></li>
+<li>Documentar contratos, supuestos y pasos de operación. → <span class="line"></span></li>
+</ol>
+</div>
+<div class="exercise">
+<h3>Ejercicio 12. Elegir avanzado: decisiones y trade-offs</h3>
+<p class="inst">Selecciona la opción más adecuada.</p>
+<ol class='items'>
+<li>Requisito ambiguo: (<code>definir contrato y validar</code> / <code>asumir</code> / <code>implementar sin acordar</code>).</li>
+<li>Fallo transitorio de dependencia: (<code>retry con backoff y límite</code> / <code>reintento infinito</code> / <code>ignorar error</code>).</li>
+<li>Cambio incompatible: (<code>versionar/migrar</code> / <code>romper silenciosamente</code> / <code>no avisar</code>).</li>
+<li>Acceso a datos sensibles: (<code>mínimo privilegio y controles</code> / <code>acceso amplio</code> / <code>exponer en logs</code>).</li>
+<li>Degradación de rendimiento: (<code>medir y optimizar cuello</code> / <code>optimizar a ciegas</code> / <code>ignorar</code>).</li>
+<li>Entregas frecuentes: (<code>CI con gates</code> / <code>deploy manual sin pruebas</code> / <code>saltar revisión</code>).</li>
+</ol>
+</div>
+<div class="exercise">
+<h3>Ejercicio 13. Transformar avanzado: de frágil a robusto</h3>
+<p class="inst">Transforma a una alternativa más segura y mantenible.</p>
+<ol class='items'>
+<li>Implementación sin validación → añade validación/guards explícitos. <span class="line"></span><span class="line"></span></li>
+<li>Valor/config hardcodeado → uso de configuración por entorno. <span class="line"></span></li>
+<li>Flujo sin manejo de errores → manejo consistente y respuesta adecuada. <span class="line"></span><span class="line"></span></li>
+<li>Operación sin trazabilidad → logging/métricas con contexto. <span class="line"></span></li>
+<li>Componente acoplado → separación de responsabilidades (indica extracción). <span class="line"></span><span class="line"></span></li>
+<li>Caso límite verificación TOTP no cubierto → tratamiento correcto. <span class="line"></span></li>
+</ol>
+</div>
+<div class="exercise">
+<h3>Ejercicio 14. Escenario extendido: panel administrativo sensible</h3>
+<p class="inst">Responde con decisiones técnicas, mitigaciones y verificación.</p>
+<ol class='items'>
+<li>Objetivo y alcance del cambio (qué incluye/excluye). <span class="line"></span><span class="line"></span></li>
+<li>Riesgos principales (seguridad, datos, disponibilidad) y mitigación. <span class="line"></span><span class="line"></span><span class="line"></span></li>
+<li>Decisiones de diseño/contrato y por qué. <span class="line"></span><span class="line"></span></li>
+<li>Estrategia de pruebas (unitarias, integración, casos borde). <span class="line"></span><span class="line"></span><span class="line"></span></li>
+<li>Métricas/logs/alertas para operar y detectar fallos. <span class="line"></span><span class="line"></span></li>
+<li>Plan de despliegue y rollback. <span class="line"></span><span class="line"></span></li>
+</ol>
+</div>
+<div class="exercise">
+<h3>Ejercicio 15. Producción extendida: entrega práctica</h3>
+<p class="inst">Desarrolla una solución concreta y verificable.</p>
+<ol class='items'>
+<li>Diseña flujo login/refresh/logout con rotación, detección de reuse y 2FA TOTP. <span class="line"></span><span class="line"></span><span class="line"></span><span class="line"></span><span class="line"></span></li>
+<li>Define 4 casos de verificación (feliz, error, borde, seguridad/regresión). <span class="line"></span><span class="line"></span><span class="line"></span></li>
+<li>Criterios de aceptación medibles (3). <span class="line"></span><span class="line"></span></li>
+<li>Riesgos residuales y mitigación. <span class="line"></span><span class="line"></span></li>
+<li>Notas de documentación/operación necesarias. <span class="line"></span><span class="line"></span></li>
+<li>Dos mejoras incrementales futuras. <span class="line"></span><span class="line"></span></li>
+</ol>
+</div>
+<div class="exercise">
+<h3>Ejercicio 16. Caso práctico integrador</h3>
+<p class="inst">Resuelve el caso aplicando conceptos de la unidad y unidades previas cuando corresponda.</p>
+<div class="example"><strong>Ejemplo:</strong> Solución modelo: delimitar alcance, listar 3+ problemas con causa, proponer diseño alineado a auth JWT/2FA, ejecutar pasos incrementales y validar con pruebas/observación; considerar seguridad, errores y mantenibilidad.</div>
+<ol class='items'>
+<li>Contexto: identifica actores, entradas, salidas y restricciones. <span class="line"></span><span class="line"></span><span class="line"></span></li>
+<li>Problemas detectados (mínimo 3) y causa probable. <span class="line"></span><span class="line"></span><span class="line"></span></li>
+<li>Decisiones de diseño/implementación y justificación. <span class="line"></span><span class="line"></span><span class="line"></span></li>
+<li>Plan de implementación por pasos (ordenado). <span class="line"></span><span class="line"></span><span class="line"></span></li>
+<li>Validación: cómo comprobarías que el caso quedó resuelto. <span class="line"></span><span class="line"></span></li>
+</ol>
+</div>
+<div class="exercise">
+<h3>Ejercicio 17. Depuración y análisis de causa raíz</h3>
+<p class="inst">Analiza el incidente y propone diagnóstico y corrección.</p>
+<div class="example"><strong>Ejemplo:</strong> Modelo: recolectar evidencia, formular hipótesis, aislar con reproducción, mitigar (rollback/flag/limit), corregir causa raíz, agregar tests y monitoreo/alertas.</div>
+<ol class='items'>
+<li>Síntoma observado y evidencia a recoger (logs, métricas, trazas, inputs). <span class="line"></span><span class="line"></span><span class="line"></span></li>
+<li>Hipótesis de causa raíz (al menos 2) y cómo descartarlas. <span class="line"></span><span class="line"></span><span class="line"></span></li>
+<li>Corrección inmediata (mitigación) y corrección definitiva. <span class="line"></span><span class="line"></span><span class="line"></span></li>
+<li>Riesgo de regresión y pruebas a añadir. <span class="line"></span><span class="line"></span></li>
+<li>Acción preventiva para evitar recurrencia. <span class="line"></span><span class="line"></span></li>
+</ol>
+</div>
+<div class="exercise">
+<h3>Ejercicio 18. Diseño y documentación técnica</h3>
+<p class="inst">Produce artefactos técnicos claros para el equipo.</p>
+<div class="example"><strong>Ejemplo:</strong> Modelo: contrato explícito, flujo por componentes, requisitos no funcionales, criterios medibles y runbook breve.</div>
+<ol class='items'>
+<li>Define contrato/interfaz (entradas, salidas, errores) relacionado con la solución. <span class="line"></span><span class="line"></span><span class="line"></span><span class="line"></span></li>
+<li>Diagrama o descripción estructurada de componentes/flujo (texto). <span class="line"></span><span class="line"></span><span class="line"></span></li>
+<li>Consideraciones de seguridad, rendimiento y compatibilidad. <span class="line"></span><span class="line"></span><span class="line"></span></li>
+<li>Criterios de aceptación y definición de terminado (DoD). <span class="line"></span><span class="line"></span></li>
+<li>Notas de operación/despliegue y rollback. <span class="line"></span><span class="line"></span></li>
+</ol>
+</div>
+<div class="exercise">
+<h3>Ejercicio 19. Producción avanzada y verificación</h3>
+<p class="inst">Entrega una implementación/plan detallado y su verificación.</p>
+<div class="example"><strong>Ejemplo:</strong> Modelo: implementación coherente, 5 verificaciones, fixtures claros, señales operativas y mejora incremental.</div>
+<ol class='items'>
+<li>Diseña rotación, revocación, detección de reuse y flujo 2FA. <span class="line"></span><span class="line"></span><span class="line"></span><span class="line"></span><span class="line"></span><span class="line"></span></li>
+<li>Casos de verificación: feliz, error, borde, seguridad y regresión. <span class="line"></span><span class="line"></span><span class="line"></span><span class="line"></span></li>
+<li>Datos/fixtures de ejemplo y resultado esperado. <span class="line"></span><span class="line"></span><span class="line"></span></li>
+<li>Observabilidad: logs/métricas/alertas relevantes. <span class="line"></span><span class="line"></span></li>
+<li>Riesgos, mitigaciones y próximos pasos. <span class="line"></span><span class="line"></span></li>
+</ol>
+</div>
+</section>

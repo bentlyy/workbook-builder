@@ -1,0 +1,31 @@
+<p class="u">Unidad 8. Next.js App Router: rutas, Server/Client Components y datos</p>
+<p><strong>Ej. 1:</strong> 1) UI/página 2) anidadas/hijas 3) Server 4) "use client" 5) carga / error 6) [id]</p>
+<p><strong>Ej. 2:</strong> 1) secretos/credenciales 2) revalidación 3) props 4) cliente 5) Server Actions 6) rendimiento</p>
+<p><strong>Ej. 3:</strong> a) Error b) Correcto c) Error/mala práctica d) Correcto e) Correcto (consideración de diseño) f) Error</p>
+<p><strong>Ej. 4:</strong> 1) Server 2) Client 3) layout.tsx 4) products/[id]/page.tsx 5) no-store/revalidación 6) error.tsx</p>
+<p><strong>Ej. 5:</strong> 1) Client Component 2) Server 3) mantener en servidor 4) loading/Suspense 5) Client 6) aprovechar servidor/cache</p>
+<p><strong>Ej. 6:</strong> 1) "use client" 2) fetch async en server component y pasar props 3) app/settings/profile/page.tsx (+ layout si aplica) 4) recibir params/orderId según API de Next 5) "use client" y onClick 6) app/dashboard/loading.tsx</p>
+<p><strong>Ej. 7:</strong> 1) a,b,c,d 2) 1-B,2-A,3-C,4-D 3) a,b,c,d 4) 1-C,2-A,3-B 5) a,b,c,d 6) 1-A,2-B,3-C</p>
+<p><strong>Ej. 8:</strong> 1) Server: página/listado inicial, layout; Client: filtros interactivos, modal edición 2) en servidor (Server Component/route handler/action) 3) loading.tsx/Suspense 4) interacción en cliente (estado UI) aunque datos puedan consultarse en servidor 5) mantener llamadas y secretos en servidor 6) app/inventory/page.tsx y app/inventory/[sku]/page.tsx</p>
+<p><strong>Ej. 9:</strong> 1) export default async function Page(){const res=await fetch(...);const data=await res.json();return &lt;List data={data}/&gt;} 2) "use client"; useState para value/onChange 3) servidor por defecto, cliente solo si hay interactividad/browser APIs, secretos siempre en servidor</p>
+<p><strong>Ej. 10:</strong> 1) concepto central del tema 2) probar/validar 3) aplicar Server Components 4) alternativa segura a 'use client' global 5) manejo explícito de revalidación de datos 6) evidencia: tests/logs/métricas</p>
+<p><strong>Ej. 11:</strong> a) Error b) Correcto c) Error d) Correcto e) Error/riesgo f) Correcto</p>
+<p><strong>Ej. 12:</strong> 1) definir contrato 2) retry con backoff 3) versionar/migrar 4) mínimo privilegio 5) medir y optimizar 6) CI con gates</p>
+<p><strong>Ej. 13:</strong> 1) validar inputs/estados 2) variables de entorno/config 3) try/catch y errores tipados/consistentes 4) observabilidad 5) extraer módulo/capa 6) manejar límite explícitamente</p>
+<p><strong>Ej. 14:</strong> Escenario: Se necesita proteger secretos, optimizar carga y mantener interactividad en filtros y formularios. Debes proponer una solución alineada a buenas prácticas de Next.js App Router considerando mantenibilidad, seguridad y operación en producción.</p>
+<p><strong>Ej. 15:</strong> 1) implementación/esquema correcto y claro 2) casos cubren éxito, fallo, límite y seguridad 3) criterios medibles 4) riesgos y mitigaciones 5) docs/operación 6) mejoras incrementales</p>
+<p><strong>Ej. 16:</strong> Solución modelo: delimitar alcance, listar 3+ problemas con causa, proponer diseño alineado a Next.js App Router, ejecutar pasos incrementales y validar con pruebas/observación; considerar seguridad, errores y mantenibilidad.</p>
+<p><strong>Ej. 17:</strong> Modelo: recolectar evidencia, formular hipótesis, aislar con reproducción, mitigar (rollback/flag/limit), corregir causa raíz, agregar tests y monitoreo/alertas.</p>
+<p><strong>Ej. 18:</strong> Modelo: contrato explícito, flujo por componentes, requisitos no funcionales, criterios medibles y runbook breve.</p>
+<p><strong>Ej. 19:</strong> Modelo: implementación coherente, 5 verificaciones, fixtures claros, señales operativas y mejora incremental.</p>
+<p><strong>Notas ampliadas U8:</strong> criterios de evaluación — corrección técnica, manejo de errores/bordes, seguridad, claridad de contratos, pruebas y observabilidad. Acepta variantes equivalentes bien justificadas.</p>
+
+<div class="ans-detail"><p><strong>Guía de corrección detallada U8:</strong></p>
+<ul>
+<li><strong>Completar/transformar:</strong> aceptar sinónimos técnicos correctos y variantes equivalentes (sintaxis, orden, comillas) si respetan semántica, tipos y seguridad.</li>
+<li><strong>Corregir:</strong> identificar error + causa + arreglo válido; "Correcto" solo si no hay fallo. Valorar explicación breve.</li>
+<li><strong>Elegir:</strong> además de la opción, reconocer por qué los distractores fallan (seguridad, contrato, consistencia, rendimiento).</li>
+<li><strong>Escenarios/casos/RCA:</strong> incluir contexto y supuestos, ≥3 hallazgos/riesgos con causa y evidencia, decisiones con trade-offs, pasos ordenados, verificación (tests/métricas/logs) y mitigación/rollback.</li>
+<li><strong>Producción/diseño:</strong> contrato claro (entradas/salidas/errores), manejo de bordes y errores, seguridad (authn/authz, validación, secretos, tenant), observabilidad y criterios de aceptación medibles.</li>
+<li><strong>Rúbrica (0-2):</strong> corrección técnica, seguridad y manejo de bordes, calidad de pruebas/verificación, claridad y operabilidad. 0=incorrecto, 1=parcial, 2=correcto y justificado.</li>
+</ul></div>

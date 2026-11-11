@@ -1,0 +1,31 @@
+<p class="u">Unidad 1. JavaScript moderno y entorno Node.js 20+ (ESM)</p>
+<p><strong>Ej. 1:</strong> 1) let 2) función / undefined 3) const / reasignaciones 4) null / undefined 5) === / == 6) array / push, sort o splice (métodos mutables)</p>
+<p><strong>Ej. 2:</strong> 1) package.json 2) import { parseConfig } from './mod.js' 3) logger (o nombre elegido) 4) extensión 5) process.env 6) .gitignore (y .dockerignore en contenedores)</p>
+<p><strong>Ej. 3:</strong> a) Error: const no permite reasignación. b) Correcto/observación: añadir extensión según configuración. c) Correcto. d) Correcto. e) Correcto (riesgo; unificar módulos). f) Error: spread es superficial; usar structuredClone u otra estrategia.</p>
+<p><strong>Ej. 4:</strong> 1) map 2) filter 3) lanza excepción 4) alias 5) user o profile es null/undefined 6) {...a, ...b} (o copia explícita)</p>
+<p><strong>Ej. 5:</strong> 1) .env.example y secretos fuera 2) documentar en README y scripts 3) exports nombrados claros 4) validar y manejar errores 5) entradas/salidas explícitas 6) fijar versión</p>
+<p><strong>Ej. 6:</strong> 1) const {name, role} = user; 2) `Hola ${name}!` 3) items.map(i =&gt; i.id) 4) [...arr, item] 5) export { sum } 6) function f(port = 3000){} (o ?? para 0)</p>
+<p><strong>Ej. 7:</strong> 1) b,d,c,a 2) 1-B,2-C,3-A 3) b,a,c 4) 1-B,2-C,3-A 5) b,a,c,d 6) 1-A,2-B,3-C</p>
+<p><strong>Ej. 8:</strong> 1) Unificar a ESM o CJS consistentemente. 2) === y validaciones explícitas. 3) Copiar antes: [...arr].sort() o toSorted(). 4) Variables de entorno/secret manager y .env.example. 5) Agregar extensión y alinear config. 6) engines y .nvmrc/.node-version.</p>
+<p><strong>Ej. 9:</strong> 1) export function sum(a,b){ if(!Number.isFinite(a)||!Number.isFinite(b)) throw new TypeError('Invalid'); return a+b; } 2) {"name":"x","type":"module","scripts":{"start":"node src/index.js"},"engines":{"node":"&gt;=20"}} 3) Ej: usar ===, evitar mutaciones, no hardcodear secretos, unificar ESM.</p>
+<p><strong>Ej. 10:</strong> 1) profunda 2) nombre-script 3) null / undefined 4) tipo 5) path 6) resuelta</p>
+<p><strong>Ej. 11:</strong> a) Error: 0 es válido; usar ?? o chequeo explícito b) Correcto (según config) c) Correcto d) Error: solo superficial e) Correcto f) Correcto</p>
+<p><strong>Ej. 12:</strong> 1) new Set 2) merge controlado 3) validar esquema 4) export const 5) process.env.NODE_ENV 6) JSON estructurado</p>
+<p><strong>Ej. 13:</strong> 1) return {...user, role:'admin'} 2) user?.address?.city ?? 'N/A' 3) import fs from 'fs'; export {read} 4) import {a,b} from './x.js' 5) nums.reduce((s,n)=&gt;s+n,0) 6) validar arreglo no vacío y números finitos</p>
+<p><strong>Ej. 14:</strong> Escenario: script ESM importa CSV→JSON para e-commerce (50k filas), normaliza campos y reporta errores por fila. Falló antes por mezcla CJS/ESM, comparación laxa y mutaciones. Debe correr en CI y Linux con Node 20 y producir salida determinista. Requiere trazabilidad por fila y manejo seguro de valores como 0.</p>
+<p><strong>Ej. 15:</strong> 1) convertir, validar entero &gt;=0, sino fallback 2) const port = process.env.PORT ?? '3000' 3) discriminated result o campos tipados 4) '10',0,-1,'abc',null 5) extensiones, exports claros, sin side-effects, env validado 6) parseo, validación, reporte/io</p>
+<p><strong>Ej. 16:</strong> Solución modelo: delimitar alcance, listar 3+ problemas con causa, proponer diseño alineado a JS/ESM y tooling Node 20+, ejecutar pasos incrementales y validar con pruebas/observación; considerar seguridad, errores y mantenibilidad.</p>
+<p><strong>Ej. 17:</strong> Modelo: recolectar evidencia, formular hipótesis, aislar con reproducción, mitigar (rollback/flag/limit), corregir causa raíz, agregar tests y monitoreo/alertas.</p>
+<p><strong>Ej. 18:</strong> Modelo: contrato explícito, flujo por componentes, requisitos no funcionales, criterios medibles y runbook breve.</p>
+<p><strong>Ej. 19:</strong> Modelo: implementación coherente, 5 verificaciones, fixtures claros, señales operativas y mejora incremental.</p>
+<p><strong>Notas ampliadas U1:</strong> criterios de evaluación — corrección técnica, manejo de errores/bordes, seguridad, claridad de contratos, pruebas y observabilidad. Acepta variantes equivalentes bien justificadas.</p>
+
+<div class="ans-detail"><p><strong>Guía de corrección detallada U1:</strong></p>
+<ul>
+<li><strong>Completar/transformar:</strong> aceptar sinónimos técnicos correctos y variantes equivalentes (sintaxis, orden, comillas) si respetan semántica, tipos y seguridad.</li>
+<li><strong>Corregir:</strong> identificar error + causa + arreglo válido; "Correcto" solo si no hay fallo. Valorar explicación breve.</li>
+<li><strong>Elegir:</strong> además de la opción, reconocer por qué los distractores fallan (seguridad, contrato, consistencia, rendimiento).</li>
+<li><strong>Escenarios/casos/RCA:</strong> incluir contexto y supuestos, ≥3 hallazgos/riesgos con causa y evidencia, decisiones con trade-offs, pasos ordenados, verificación (tests/métricas/logs) y mitigación/rollback.</li>
+<li><strong>Producción/diseño:</strong> contrato claro (entradas/salidas/errores), manejo de bordes y errores, seguridad (authn/authz, validación, secretos, tenant), observabilidad y criterios de aceptación medibles.</li>
+<li><strong>Rúbrica (0-2):</strong> corrección técnica, seguridad y manejo de bordes, calidad de pruebas/verificación, claridad y operabilidad. 0=incorrecto, 1=parcial, 2=correcto y justificado.</li>
+</ul></div>

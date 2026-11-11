@@ -1,0 +1,231 @@
+<section class="unit" id="u15">
+<h2>Unidad 15. Arquitectura de servicios, modularidad y multi-tenancy</h2>
+<p class="context">A medida que un producto crece, la arquitectura define cuánto cuesta cambiar, escalar y operar el sistema. Separar responsabilidades, establecer límites entre módulos y diseñar correctamente el aislamiento multi-tenant evita acoplamiento y fugas de datos. Esta unidad practica capas, modularidad, boundaries, estrategias de multi-tenancy y decisiones de diseño orientadas a mantenibilidad y escalabilidad en SaaS.</p>
+<div class="exercise">
+<h3>Ejercicio 1. Completar: capas y modularidad</h3>
+<p class="inst">Completa con el concepto correcto.</p>
+<div class="example"><strong>Ejemplo:</strong> Ejemplo: Separar dominio de infraestructura facilita probar reglas de negocio sin depender de la base de datos.</div>
+<ol class='items'>
+<li>Una arquitectura en capas típica separa presentación/API, aplicación/servicios y acceso a <span class="blank md"></span>.</li>
+<li>El principio de responsabilidad única (SRP) indica que un módulo debe tener una razón clara para <span class="blank md"></span>.</li>
+<li>Un boundary bien definido expone una interfaz y oculta <span class="blank md"></span> internos.</li>
+<li>El acoplamiento alto dificulta el <span class="blank md"></span> y aumenta el impacto de los cambios.</li>
+<li>La inyección de dependencias permite sustituir implementaciones para <span class="blank md"></span> y flexibilidad.</li>
+<li>Un módulo cohesivo agrupa funcionalidades <span class="blank md"></span> entre sí.</li>
+</ol>
+</div>
+<div class="exercise">
+<h3>Ejercicio 2. Completar: multi-tenancy y aislamiento</h3>
+<p class="inst">Completa los conceptos.</p>
+<ol class='items'>
+<li>En multi-tenancy, un tenant representa un <span class="blank md"></span> (cliente/organización) aislado lógicamente.</li>
+<li>Una estrategia común es columna <code>tenant_id</code> en tablas compartidas con filtros <span class="blank md"></span>.</li>
+<li>Otras estrategias incluyen esquema por tenant o base de datos por tenant, con distintos trade-offs de <span class="blank lg"></span>.</li>
+<li>El tenant activo debe derivarse del contexto de autenticación, no de input <span class="blank md"></span> del cliente.</li>
+<li>Pruebas de aislamiento deben verificar que un tenant no acceda a datos de <span class="blank md"></span>.</li>
+<li>Logs y métricas deben incluir <code>tenant_id</code> para trazabilidad sin exponer datos <span class="blank md"></span>.</li>
+</ol>
+</div>
+<div class="exercise">
+<h3>Ejercicio 3. Corregir errores (si es correcto, escribe "Correcto")</h3>
+<p class="inst">Corrige o marca "Correcto".</p>
+<ol class='items'>
+<li>Permitir que el cliente envíe cualquier tenant_id y usarlo directamente en queries. → <span class="line"></span></li>
+<li>Aplicar filtros por tenant en repositorio/capa de datos de forma consistente. → <span class="line"></span></li>
+<li>Compartir caché entre tenants sin segmentar claves por tenant. → <span class="line"></span></li>
+<li>Definir interfaces entre módulos para reducir acoplamiento. → <span class="line"></span></li>
+<li>Duplicar reglas de negocio en controladores, jobs y scripts. → <span class="line"></span></li>
+<li>Documentar límites y contratos entre módulos. → <span class="line"></span></li>
+</ol>
+</div>
+<div class="exercise">
+<h3>Ejercicio 4. Elegir la opción correcta</h3>
+<p class="inst">Elige la alternativa adecuada.</p>
+<ol class='items'>
+<li>Aislamiento lógico simple en DB compartida: (<code>tenant_id en tablas</code> / <code>sin tenant_id</code>).</li>
+<li>Regla de negocio usada en varios endpoints: (<code>servicio de dominio</code> / <code>copiar en cada handler</code>).</li>
+<li>Dependencia de infraestructura: (<code>inyectar/abstraer</code> / <code>instanciar globalmente en todo</code>).</li>
+<li>Cache multi-tenant: (<code>clave incluye tenant</code> / <code>clave global</code>).</li>
+<li>Migraciones en modelo multi-tenant compartido: (<code>coordinadas/versionadas</code> / <code>manuales por cliente sin control</code>).</li>
+<li>Límite de módulo: (<code>API/contrato claro</code> / <code>acceso directo a internals</code>).</li>
+</ol>
+</div>
+<div class="exercise">
+<h3>Ejercicio 5. Elegir/decisión de arquitectura</h3>
+<p class="inst">Selecciona la mejor decisión.</p>
+<ol class='items'>
+<li>Nuevo requisito cruza varios módulos: (<code>definir contrato y owner</code> / <code>parches ad-hoc</code>).</li>
+<li>Query sin filtro tenant en repo compartido: (<code>bloquear/corregir</code> / <code>aceptar por rapidez</code>).</li>
+<li>Módulo con muchas responsabilidades: (<code>refactorizar por cohesión</code> / <code>seguir creciendo</code>).</li>
+<li>Configuración por tenant: (<code>almacenar y resolver por contexto</code> / <code>hardcodear</code>).</li>
+<li>Observabilidad: (<code>métricas por tenant agregadas con cuidado</code> / <code>sin dimensiones</code>).</li>
+<li>Escalado: (<code>identificar cuellos de botella y límites</code> / <code>adivinar</code>).</li>
+</ol>
+</div>
+<div class="exercise">
+<h3>Ejercicio 6. Transformar: mejorar diseño y aislamiento</h3>
+<p class="inst">Transforma según se indique.</p>
+<ol class='items'>
+<li>Handler con SQL y reglas mezcladas → separación en capas (indica 3 capas): <span class="line"></span></li>
+<li>Query <code>SELECT * FROM orders WHERE id=$1</code> en app multi-tenant → añade aislamiento: <span class="line"></span></li>
+<li>Clave de cache <code>orders:list</code> → versión multi-tenant: <span class="line"></span></li>
+<li>Servicio que instancia <code>new PrismaClient()</code> en cada método → mejora: <span class="line"></span></li>
+<li>Regla de precio duplicada en 3 lugares → refactor: <span class="line"></span></li>
+<li>DTO que expone campos de otro tenant → corrección: <span class="line"></span></li>
+</ol>
+</div>
+<div class="exercise">
+<h3>Ejercicio 7. Reordenar/relacionar: diseño modular</h3>
+<p class="inst">Ordena o relaciona.</p>
+<ol class='items'>
+<li>Diseño: (a) identificar dominios (b) definir boundaries (c) contratos (d) implementar y validar). → <span class="line"></span></li>
+<li>1)controller 2)service 3)repository con A)datos B)negocio C)HTTP. → <span class="line"></span></li>
+<li>1)tenant_id 2)schema por tenant 3)DB por tenant con A)aislamiento alto B)columna compartida C)aislamiento medio. → <span class="line"></span></li>
+<li>Mitigar fuga: (a) obtener tenant de auth (b) propagar contexto (c) filtrar en acceso datos (d) test de aislamiento). → <span class="line"></span></li>
+<li>1)cohesión 2)acoplamiento 3)contrato con A)interfaz estable B)relación interna C)dependencia entre módulos. → <span class="line"></span></li>
+<li>Refactor: (a) detectar duplicación (b) extraer servicio (c) actualizar consumidores (d) probar). → <span class="line"></span></li>
+</ol>
+</div>
+<div class="exercise">
+<h3>Ejercicio 8. Escenario: plataforma SaaS para múltiples talleres</h3>
+<p class="inst">Responde al escenario.</p>
+<div class="example"><strong>Ejemplo:</strong> Escenario: una API sirve a múltiples talleres (tenants) con órdenes, clientes y facturación. Se requiere aislamiento estricto, reportes por taller y posibilidad de escalar a cientos de tenants.</div>
+<ol class='items'>
+<li>¿De dónde debe obtenerse el tenant en cada request? <span class="line"></span></li>
+<li>Indica 2 puntos donde aplicar filtro de tenant: <span class="line"></span><span class="line"></span></li>
+<li>Riesgo de cache global sin segmentación: <span class="line"></span></li>
+<li>Estrategia de multi-tenancy elegida y por qué (breve): <span class="line"></span><span class="line"></span></li>
+<li>Cómo probarías que taller A no ve datos de taller B: <span class="line"></span><span class="line"></span></li>
+<li>3 señales de que la arquitectura necesita refactor: <span class="line"></span><span class="line"></span></li>
+</ol>
+</div>
+<div class="exercise">
+<h3>Ejercicio 9. Producción guiada</h3>
+<p class="inst">Escribe soluciones breves.</p>
+<ol class='items'>
+<li>Interfaz de repositorio <code>OrderRepository</code> con método listado por tenant (firma). <span class="line"></span><span class="line"></span></li>
+<li>Middleware/función conceptual para inyectar tenantContext desde auth: <span class="line"></span><span class="line"></span></li>
+<li>3 reglas de multi-tenancy segura. <span class="line"></span><span class="line"></span><span class="line"></span></li>
+</ol>
+</div>
+<div class="exercise">
+<h3>Ejercicio 10. Completar avanzado: arquitectura multi-tenant</h3>
+<p class="inst">Completa con el término, API o práctica correcta (profundización).</p>
+<ol class='items'>
+<li>Un concepto clave para robustez en arquitectura multi-tenant es <span class="blank lg"></span>, porque reduce fallos en producción.</li>
+<li>Antes de desplegar cambios relacionados se debe <span class="blank lg"></span> (verificación recomendada).</li>
+<li>Usar <code>tenant desde auth</code> correctamente permite <span class="blank lg"></span> cuando el contexto lo requiere.</li>
+<li>Una mala práctica frecuente es <code>tenant desde body</code>; en su lugar conviene <span class="blank lg"></span>.</li>
+<li>Para casos límite como boundary de módulo la estrategia adecuada es <span class="blank lg"></span>.</li>
+<li>Una señal de implementación madura incluye <span class="blank lg"></span> (observabilidad, pruebas o métricas).</li>
+</ol>
+</div>
+<div class="exercise">
+<h3>Ejercicio 11. Corregir avanzado (marca "Correcto" si aplica)</h3>
+<p class="inst">Analiza decisiones típicas e identifica errores sutiles.</p>
+<ol class='items'>
+<li>Omitir validación o controles en el borde del sistema. → <span class="line"></span></li>
+<li>Registrar contexto suficiente (sin secretos) para diagnosticar fallos. → <span class="line"></span></li>
+<li>Aplicar una solución sin considerar impacto en seguridad o datos. → <span class="line"></span></li>
+<li>Automatizar pruebas y checks relevantes para el cambio. → <span class="line"></span></li>
+<li>Usar configuraciones iguales en todos los entornos sin control. → <span class="line"></span></li>
+<li>Documentar contratos, supuestos y pasos de operación. → <span class="line"></span></li>
+</ol>
+</div>
+<div class="exercise">
+<h3>Ejercicio 12. Elegir avanzado: decisiones y trade-offs</h3>
+<p class="inst">Selecciona la opción más adecuada.</p>
+<ol class='items'>
+<li>Requisito ambiguo: (<code>definir contrato y validar</code> / <code>asumir</code> / <code>implementar sin acordar</code>).</li>
+<li>Fallo transitorio de dependencia: (<code>retry con backoff y límite</code> / <code>reintento infinito</code> / <code>ignorar error</code>).</li>
+<li>Cambio incompatible: (<code>versionar/migrar</code> / <code>romper silenciosamente</code> / <code>no avisar</code>).</li>
+<li>Acceso a datos sensibles: (<code>mínimo privilegio y controles</code> / <code>acceso amplio</code> / <code>exponer en logs</code>).</li>
+<li>Degradación de rendimiento: (<code>medir y optimizar cuello</code> / <code>optimizar a ciegas</code> / <code>ignorar</code>).</li>
+<li>Entregas frecuentes: (<code>CI con gates</code> / <code>deploy manual sin pruebas</code> / <code>saltar revisión</code>).</li>
+</ol>
+</div>
+<div class="exercise">
+<h3>Ejercicio 13. Transformar avanzado: de frágil a robusto</h3>
+<p class="inst">Transforma a una alternativa más segura y mantenible.</p>
+<ol class='items'>
+<li>Implementación sin validación → añade validación/guards explícitos. <span class="line"></span><span class="line"></span></li>
+<li>Valor/config hardcodeado → uso de configuración por entorno. <span class="line"></span></li>
+<li>Flujo sin manejo de errores → manejo consistente y respuesta adecuada. <span class="line"></span><span class="line"></span></li>
+<li>Operación sin trazabilidad → logging/métricas con contexto. <span class="line"></span></li>
+<li>Componente acoplado → separación de responsabilidades (indica extracción). <span class="line"></span><span class="line"></span></li>
+<li>Caso límite boundary de módulo no cubierto → tratamiento correcto. <span class="line"></span></li>
+</ol>
+</div>
+<div class="exercise">
+<h3>Ejercicio 14. Escenario extendido: plataforma SaaS multi-clínica</h3>
+<p class="inst">Responde con decisiones técnicas, mitigaciones y verificación.</p>
+<ol class='items'>
+<li>Objetivo y alcance del cambio (qué incluye/excluye). <span class="line"></span><span class="line"></span></li>
+<li>Riesgos principales (seguridad, datos, disponibilidad) y mitigación. <span class="line"></span><span class="line"></span><span class="line"></span></li>
+<li>Decisiones de diseño/contrato y por qué. <span class="line"></span><span class="line"></span></li>
+<li>Estrategia de pruebas (unitarias, integración, casos borde). <span class="line"></span><span class="line"></span><span class="line"></span></li>
+<li>Métricas/logs/alertas para operar y detectar fallos. <span class="line"></span><span class="line"></span></li>
+<li>Plan de despliegue y rollback. <span class="line"></span><span class="line"></span></li>
+</ol>
+</div>
+<div class="exercise">
+<h3>Ejercicio 15. Producción extendida: entrega práctica</h3>
+<p class="inst">Desarrolla una solución concreta y verificable.</p>
+<ol class='items'>
+<li>Define TenantContext, repositorio con filtro obligatorio y reglas de autorización cruzada. <span class="line"></span><span class="line"></span><span class="line"></span><span class="line"></span><span class="line"></span></li>
+<li>Define 4 casos de verificación (feliz, error, borde, seguridad/regresión). <span class="line"></span><span class="line"></span><span class="line"></span></li>
+<li>Criterios de aceptación medibles (3). <span class="line"></span><span class="line"></span></li>
+<li>Riesgos residuales y mitigación. <span class="line"></span><span class="line"></span></li>
+<li>Notas de documentación/operación necesarias. <span class="line"></span><span class="line"></span></li>
+<li>Dos mejoras incrementales futuras. <span class="line"></span><span class="line"></span></li>
+</ol>
+</div>
+<div class="exercise">
+<h3>Ejercicio 16. Caso práctico integrador</h3>
+<p class="inst">Resuelve el caso aplicando conceptos de la unidad y unidades previas cuando corresponda.</p>
+<div class="example"><strong>Ejemplo:</strong> Solución modelo: delimitar alcance, listar 3+ problemas con causa, proponer diseño alineado a arquitectura multi-tenant, ejecutar pasos incrementales y validar con pruebas/observación; considerar seguridad, errores y mantenibilidad.</div>
+<ol class='items'>
+<li>Contexto: identifica actores, entradas, salidas y restricciones. <span class="line"></span><span class="line"></span><span class="line"></span></li>
+<li>Problemas detectados (mínimo 3) y causa probable. <span class="line"></span><span class="line"></span><span class="line"></span></li>
+<li>Decisiones de diseño/implementación y justificación. <span class="line"></span><span class="line"></span><span class="line"></span></li>
+<li>Plan de implementación por pasos (ordenado). <span class="line"></span><span class="line"></span><span class="line"></span></li>
+<li>Validación: cómo comprobarías que el caso quedó resuelto. <span class="line"></span><span class="line"></span></li>
+</ol>
+</div>
+<div class="exercise">
+<h3>Ejercicio 17. Depuración y análisis de causa raíz</h3>
+<p class="inst">Analiza el incidente y propone diagnóstico y corrección.</p>
+<div class="example"><strong>Ejemplo:</strong> Modelo: recolectar evidencia, formular hipótesis, aislar con reproducción, mitigar (rollback/flag/limit), corregir causa raíz, agregar tests y monitoreo/alertas.</div>
+<ol class='items'>
+<li>Síntoma observado y evidencia a recoger (logs, métricas, trazas, inputs). <span class="line"></span><span class="line"></span><span class="line"></span></li>
+<li>Hipótesis de causa raíz (al menos 2) y cómo descartarlas. <span class="line"></span><span class="line"></span><span class="line"></span></li>
+<li>Corrección inmediata (mitigación) y corrección definitiva. <span class="line"></span><span class="line"></span><span class="line"></span></li>
+<li>Riesgo de regresión y pruebas a añadir. <span class="line"></span><span class="line"></span></li>
+<li>Acción preventiva para evitar recurrencia. <span class="line"></span><span class="line"></span></li>
+</ol>
+</div>
+<div class="exercise">
+<h3>Ejercicio 18. Diseño y documentación técnica</h3>
+<p class="inst">Produce artefactos técnicos claros para el equipo.</p>
+<div class="example"><strong>Ejemplo:</strong> Modelo: contrato explícito, flujo por componentes, requisitos no funcionales, criterios medibles y runbook breve.</div>
+<ol class='items'>
+<li>Define contrato/interfaz (entradas, salidas, errores) relacionado con la solución. <span class="line"></span><span class="line"></span><span class="line"></span><span class="line"></span></li>
+<li>Diagrama o descripción estructurada de componentes/flujo (texto). <span class="line"></span><span class="line"></span><span class="line"></span></li>
+<li>Consideraciones de seguridad, rendimiento y compatibilidad. <span class="line"></span><span class="line"></span><span class="line"></span></li>
+<li>Criterios de aceptación y definición de terminado (DoD). <span class="line"></span><span class="line"></span></li>
+<li>Notas de operación/despliegue y rollback. <span class="line"></span><span class="line"></span></li>
+</ol>
+</div>
+<div class="exercise">
+<h3>Ejercicio 19. Producción avanzada y verificación</h3>
+<p class="inst">Entrega una implementación/plan detallado y su verificación.</p>
+<div class="example"><strong>Ejemplo:</strong> Modelo: implementación coherente, 5 verificaciones, fixtures claros, señales operativas y mejora incremental.</div>
+<ol class='items'>
+<li>Define TenantGuard, repositorio base y pruebas de aislamiento. <span class="line"></span><span class="line"></span><span class="line"></span><span class="line"></span><span class="line"></span><span class="line"></span></li>
+<li>Casos de verificación: feliz, error, borde, seguridad y regresión. <span class="line"></span><span class="line"></span><span class="line"></span><span class="line"></span></li>
+<li>Datos/fixtures de ejemplo y resultado esperado. <span class="line"></span><span class="line"></span><span class="line"></span></li>
+<li>Observabilidad: logs/métricas/alertas relevantes. <span class="line"></span><span class="line"></span></li>
+<li>Riesgos, mitigaciones y próximos pasos. <span class="line"></span><span class="line"></span></li>
+</ol>
+</div>
+</section>

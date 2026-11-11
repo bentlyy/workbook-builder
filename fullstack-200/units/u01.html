@@ -1,0 +1,232 @@
+<section class="unit" id="u1">
+<h2>Unidad 1. JavaScript moderno y entorno Node.js 20+ (ESM)</h2>
+<p class="context">Un dominio sólido de la sintaxis moderna de JavaScript y del sistema de módulos ESM permite escribir código predecible, mantenible y compatible con el ecosistema actual de Node.js. Esta unidad sienta las bases para tipado, asincronía y tooling que usarás en todo el stack. Practicarás declaraciones, alcance, desestructuración, módulos y scripts con foco en errores frecuentes en proyectos reales.</p>
+<div class="exercise">
+<h3>Ejercicio 1. Completar: declaraciones, alcance y valores</h3>
+<p class="inst">Completa cada frase con el término o expresión correcta. Usa las pistas entre paréntesis cuando aparezcan.</p>
+<div class="example"><strong>Ejemplo:</strong> Ejemplo: Una variable que no debe reasignarse se declara con <code>const</code>.</div>
+<ol class='items'>
+<li>Una variable con alcance de bloque que puede reasignarse se declara con <span class="blank sm"></span> (palabra clave).</li>
+<li>Declarar con <code>var</code> otorga alcance de <span class="blank md"></span> y permite hoisting con inicialización a <code>undefined</code>, lo que puede provocar errores sutiles.</li>
+<li>En modo estricto y buenas prácticas, para valores que no cambian de referencia prefiero <span class="blank sm"></span> para evitar <span class="blank lg"></span> accidentales.</li>
+<li>El valor primitivo que representa ausencia intencional suele ser <span class="blank sm"></span>, mientras que una variable declarada sin asignar vale <span class="blank sm"></span>.</li>
+<li>Al comparar igualdad estricta sin coerción uso el operador <span class="blank sm"></span> en lugar de <span class="blank sm"></span>.</li>
+<li>El método <code>Array.prototype.map</code> devuelve un <span class="blank md"></span> nuevo sin mutar el original, a diferencia de <span class="blank md"></span> que modifica el array en sitio.</li>
+</ol>
+</div>
+<div class="exercise">
+<h3>Ejercicio 2. Completar: módulos ESM y Node.js 20+</h3>
+<p class="inst">Completa los fragmentos o conceptos relacionados con ESM, package.json y ejecución en Node 20+.</p>
+<ol class='items'>
+<li>Para habilitar ESM por defecto en un paquete puedo definir <code>"type": "module"</code> en <span class="blank md"></span>.</li>
+<li>Para exportar una función como exportación nombrada escribo <code>export function parseConfig() {}</code> y la importo con <span class="blank xl"></span>.</li>
+<li>Una exportación por defecto se importa sin llaves: <code>import ___ from "./logger.js"</code> (nombre local).</li>
+<li>En ESM, la ruta relativa a un archivo local debe incluir normalmente la <span class="blank md"></span> (p. ej. .js) según la resolución del proyecto.</li>
+<li>Para leer variables de entorno en Node uso <span class="blank lg"></span> y evito hardcodear secretos en el código fuente.</li>
+<li>El archivo <span class="blank md"></span> permite excluir <code>node_modules</code> y artefactos del control de versiones y de empaquetados.</li>
+</ol>
+</div>
+<div class="exercise">
+<h3>Ejercicio 3. Corregir errores (si es correcto, escribe "Correcto")</h3>
+<p class="inst">Revisa cada afirmación o fragmento. Corrige el error o indica "Correcto".</p>
+<ol class='items'>
+<li><code>const PORT = 3000; PORT = 4000;</code> en producción para cambiar el puerto. → <span class="line"></span></li>
+<li><code>import data from "./data"</code> en un proyecto ESM estricto puede fallar si no se incluye la extensión requerida por el resolver. → <span class="line"></span></li>
+<li>Uso <code>===</code> para evitar coerciones inesperadas en comparaciones. → <span class="line"></span></li>
+<li>Ejecutar lógica asíncrona en el nivel superior (top-level await) es compatible con ESM en Node moderno cuando el módulo lo soporta. → <span class="line"></span></li>
+<li>Mezclar <code>require</code> y <code>import</code> sin configuración interoperable puede generar errores en tiempo de ejecución o build. → <span class="line"></span></li>
+<li>Copiar un objeto anidado con spread (<code>{...obj}</code>) garantiza un clon profundo de todas las referencias internas. → <span class="line"></span></li>
+</ol>
+</div>
+<div class="exercise">
+<h3>Ejercicio 4. Elegir la opción correcta (distractores plausibles)</h3>
+<p class="inst">Elige la alternativa más adecuada en cada caso.</p>
+<ol class='items'>
+<li>Para transformar cada elemento y obtener un nuevo array uso (<code>forEach</code> / <code>map</code> / <code>filter</code>).</li>
+<li>Para obtener solo los elementos que cumplen una condición uso (<code>map</code> / <code>filter</code> / <code>reduce</code>).</li>
+<li><code>JSON.parse</code> de una cadena inválida (<code>lanza excepción</code> / <code>devuelve null</code> / <code>devuelve undefined</code>).</li>
+<li>En desestructuración, <code>const {a: alias} = obj</code> asigna el valor de <code>a</code> a (<code>a</code> / <code>alias</code> / <code>obj</code>).</li>
+<li>El encadenamiento opcional <code>user?.profile?.email</code> evita error cuando (<code>user o profile es null/undefined</code> / <code>email es string vacío</code> / <code>profile existe siempre</code>).</li>
+<li>Para combinar objetos sin mutar el primero es preferible (<code>Object.assign(a,b) mutando a</code> / <code>{...a, ...b}</code> / <code>a = b</code>).</li>
+</ol>
+</div>
+<div class="exercise">
+<h3>Ejercicio 5. Elegir/decisión de diseño</h3>
+<p class="inst">Selecciona la decisión más segura o mantenible.</p>
+<ol class='items'>
+<li>Configuración sensible: (<code>commitear .env</code> / <code>usar .env.example y secretos fuera del repo</code>).</li>
+<li>Script reproducible: (<code>documentar en README y scripts</code> / <code>comandos recordados</code>).</li>
+<li>Exportar utilidades: (<code>exports nombrados claros</code> / <code>default con objeto gigante sin tipos</code>).</li>
+<li>Al parsear input externo: (<code>asumir estructura</code> / <code>validar y manejar errores</code>).</li>
+<li>Funciones de utilidad: (<code>efectos secundarios ocultos</code> / <code>entradas/salidas explícitas</code>).</li>
+<li>Versión de Node en equipo/CI: (<code>fijar versión (engines/.nvmrc)</code> / <code>cada uno usa la suya</code>).</li>
+</ol>
+</div>
+<div class="exercise">
+<h3>Ejercicio 6. Transformar: modernizar y clarificar</h3>
+<p class="inst">Reescribe o indica la transformación solicitada.</p>
+<div class="example"><strong>Ejemplo:</strong> Ejemplo: <code>var x = 1; x = 2;</code> → <code>let x = 1; x = 2;</code>.</div>
+<ol class='items'>
+<li>Convierte a desestructuración: <code>const name = user.name; const role = user.role;</code> → <span class="line"></span></li>
+<li>Usa template literal: <code>'Hola ' + name + '!'</code> → <span class="line"></span></li>
+<li>Arrow en callback: <code>items.map(function(i){ return i.id; })</code> → <span class="line"></span></li>
+<li>Evita mutación al agregar: <code>arr.push(item)</code> (nuevo array) → <span class="line"></span></li>
+<li>A ESM nombrado: <code>module.exports = { sum }</code> → <span class="line"></span></li>
+<li>Parámetro por defecto: <code>function f(port){ port = port || 3000; }</code> (ojo con 0) → <span class="line"></span></li>
+</ol>
+</div>
+<div class="exercise">
+<h3>Ejercicio 7. Reordenar/relacionar: flujo de módulo y ejecución</h3>
+<p class="inst">Ordena o relaciona los pasos/ideas.</p>
+<ol class='items'>
+<li>Flujo para agregar dependencia: (a) ejecutar script (b) <code>npm install pkg</code> (c) importar/usar (d) confirmar <code>package.json/lockfile</code>. → <span class="line"></span></li>
+<li>Relaciona: 1) <code>export default</code> 2) <code>export const x</code> 3) <code>import * as m</code> con A) namespace B) único por módulo C) nombrada. → <span class="line"></span></li>
+<li>Crear script: (a) definir en <code>scripts</code> (b) implementar lógica (c) ejecutar <code>npm run</code>. → <span class="line"></span></li>
+<li>Error-causa: 1) ReferenceError 2) SyntaxError 3) TypeError con A) tipo/propiedad inválida B) identificador no definido C) sintaxis mal formada. → <span class="line"></span></li>
+<li>Diagnóstico: (a) leer stack (b) reproducir (c) aislar (d) corregir y verificar. → <span class="line"></span></li>
+<li>Archivo-propósito: 1) <code>.nvmrc</code> 2) <code>package-lock.json</code> 3) <code>.gitignore</code> con A) versión Node B) deps reproducibles C) exclusiones VCS. → <span class="line"></span></li>
+</ol>
+</div>
+<div class="exercise">
+<h3>Ejercicio 8. Escenario: revisión de módulo de utilidades (CLI de reportes)</h3>
+<p class="inst">Responde con precisión técnica según el escenario.</p>
+<div class="example"><strong>Ejemplo:</strong> Escenario: un CLI en Node 20+ genera reportes diarios. Tras migrar a ESM, algunos entornos fallan y hay resultados inconsistentes por comparaciones y mutaciones.</div>
+<ol class='items'>
+<li>Tiene <code>"type": "commonjs"</code> pero usa <code>import</code>. ¿Ajuste coherente? <span class="line"></span></li>
+<li>Compara con <code>==</code> y rompe el caso <code>0</code>. ¿Qué operador/práctica evitan esto? <span class="line"></span></li>
+<li>Usa <code>arr.sort()</code> sobre array compartido y otro módulo ve orden cambiado. ¿Corrección? <span class="line"></span></li>
+<li>Lee <code>API_KEY</code> desde código fuente. Indica dos mejoras. <span class="line"></span></li>
+<li>Import relativo omite extensión y falla en CI. ¿Qué haces? <span class="line"></span></li>
+<li>Propones fijar versión de Node: menciona dos mecanismos. <span class="line"></span></li>
+</ol>
+</div>
+<div class="exercise">
+<h3>Ejercicio 9. Producción guiada</h3>
+<p class="inst">Escribe soluciones breves y concretas.</p>
+<ol class='items'>
+<li>Función ESM <code>sum(a,b)</code> exportada nombrada que valide números finitos y lance <code>TypeError</code> si no. <span class="line"></span><span class="line"></span><span class="line"></span></li>
+<li>Ejemplo de <code>package.json</code> mínimo para proyecto ESM con script <code>start</code>. <span class="line"></span><span class="line"></span><span class="line"></span></li>
+<li>Redacta 3 reglas de estilo JS/TS para evitar bugs de esta unidad. <span class="line"></span><span class="line"></span><span class="line"></span></li>
+</ol>
+</div>
+<div class="exercise">
+<h3>Ejercicio 10. Completar avanzado: patrones modernos y runtime</h3>
+<p class="inst">Completa con el concepto o API correcta. Piensa en comportamiento real en Node 20+ y navegadores modernos.</p>
+<ol class='items'>
+<li><code>structuredClone(obj)</code> crea una copia <span class="blank md"></span> de estructuras soportadas, a diferencia del spread superficial.</li>
+<li>Para ejecutar scripts definidos en <code>package.json</code> uso <code>npm run </code><span class="blank md"></span>.</li>
+<li>El operador nullish coalescing <code>??</code> solo aplica cuando el valor es <span class="blank sm"></span> o <span class="blank sm"></span>, no para <code>0</code> o <code>""</code>.</li>
+<li>Un <code>Map</code> preserva el orden de inserción y permite claves de cualquier <span class="blank md"></span>, a diferencia de objetos planos.</li>
+<li>Para trabajar con rutas de archivos de forma portable en Node uso el módulo <span class="blank md"></span> (<code>path</code>).</li>
+<li><code>Promise.resolve(x)</code> envuelve un valor en una promesa <span class="blank md"></span> con ese valor.</li>
+</ol>
+</div>
+<div class="exercise">
+<h3>Ejercicio 11. Corregir avanzado (marca "Correcto" si aplica)</h3>
+<p class="inst">Analiza cada fragmento o afirmación en contexto de un servicio Node ESM.</p>
+<ol class='items'>
+<li><code>if (port == 0) port = 3000</code> para validar puerto configurable. → <span class="line"></span></li>
+<li><code>import cfg from "./data.json"</code> con import attributes según soporte/configuración. → <span class="line"></span></li>
+<li>Usar <code>Number.isNaN(x)</code> es más preciso que <code>isNaN(x)</code> para detectar NaN real. → <span class="line"></span></li>
+<li><code>Object.freeze</code> hace inmutable en profundidad cualquier objeto anidado. → <span class="line"></span></li>
+<li>Definir <code>"engines": {"node": "&gt;=20"}</code> ayuda a alinear entornos. → <span class="line"></span></li>
+<li>Capturar y registrar errores en el nivel superior de un CLI evita fallos silenciosos. → <span class="line"></span></li>
+</ol>
+</div>
+<div class="exercise">
+<h3>Ejercicio 12. Elegir avanzado: decisiones en módulos y utilidades</h3>
+<p class="inst">Selecciona la opción más robusta.</p>
+<ol class='items'>
+<li>Convertir lista a conjunto único: (<code>new Set(arr)</code> / <code>arr.map</code> / <code>arr.join</code>).</li>
+<li>Combinar config por defecto y env: (<code>merge controlado y validado</code> / <code>reemplazar sin validar</code> / <code>ignorar env</code>).</li>
+<li>Leer JSON de entrada externa: (<code>validar esquema tras parsear</code> / <code>asumir forma</code> / <code>eval</code>).</li>
+<li>Exportar constantes compartidas: (<code>export const nombrado</code> / <code>globales implícitas</code> / <code>mutar exports</code>).</li>
+<li>Detectar entorno: (<code>process.env.NODE_ENV</code> / <code>hardcode</code> / <code>variable mágica</code>).</li>
+<li>Logs estructurados: (<code>JSON con campos</code> / <code>string sin formato</code> / <code>solo emoji</code>).</li>
+</ol>
+</div>
+<div class="exercise">
+<h3>Ejercicio 13. Transformar avanzado: refactor a utilidades claras</h3>
+<p class="inst">Aplica la transformación pedida.</p>
+<ol class='items'>
+<li>Evita mutación: <code>user.role = "admin"; return user;</code> → <span class="line"></span></li>
+<li>Optional chaining/nullish: <code>const city = user &amp;&amp; user.address &amp;&amp; user.address.city ? user.address.city : "N/A";</code> → <span class="line"></span></li>
+<li>De CJS a ESM: <code>const fs = require("fs"); module.exports = {read};</code> → <span class="line"></span><span class="line"></span></li>
+<li>Agrupa imports: <code>import {a} from "./x.js"; import {b} from "./x.js";</code> → <span class="line"></span></li>
+<li>Acumular con reduce (sumar totales): <span class="line"></span></li>
+<li>Firma segura para <code>average(nums)</code> con validación: <span class="line"></span></li>
+</ol>
+</div>
+<div class="exercise">
+<h3>Ejercicio 14. Escenario extendido: pipeline de importación de catálogo (Node ESM)</h3>
+<p class="inst">Responde con decisiones técnicas detalladas.</p>
+<ol class='items'>
+<li>Diseño de módulos: propone 3 archivos y responsabilidad de cada uno. <span class="line"></span><span class="line"></span></li>
+<li>Define objeto resumen <code>{processed, valid, invalid, errors[]}</code> con un ejemplo. <span class="line"></span><span class="line"></span></li>
+<li>Regla robusta para precio '0', vacío y no numérico (usa ??/validación). <span class="line"></span><span class="line"></span></li>
+<li>Muestra cómo acumular válidos sin mutar el array original. <span class="line"></span></li>
+<li>Lista 3 variables de entorno necesarias y su propósito. <span class="line"></span><span class="line"></span></li>
+<li>¿Qué harías si el archivo de entrada no existe o es ilegible? (comportamiento y exit code). <span class="line"></span><span class="line"></span></li>
+</ol>
+</div>
+<div class="exercise">
+<h3>Ejercicio 15. Producción extendida: mini-módulo de utilidades</h3>
+<p class="inst">Desarrolla soluciones concretas.</p>
+<ol class='items'>
+<li>Implementa <code>toNonNegativeInt(value, fallback)</code> (acepta number/string, rechaza NaN/negativos, usa fallback). <span class="line"></span><span class="line"></span><span class="line"></span><span class="line"></span></li>
+<li>Snippet para leer <code>process.env.PORT</code> con default 3000 sin romper '0'. <span class="line"></span><span class="line"></span></li>
+<li>Define contrato (TS/JSDoc) para resultado de importación <code>{success,data,errors}</code>. <span class="line"></span><span class="line"></span><span class="line"></span></li>
+<li>Escribe 5 casos de prueba manuales (entrada→salida esperada). <span class="line"></span><span class="line"></span><span class="line"></span></li>
+<li>Lista 4 buenas prácticas de módulos ESM en equipos. <span class="line"></span><span class="line"></span></li>
+<li>Si index.js supera 300 líneas, ¿qué 3 extracciones harías? <span class="line"></span><span class="line"></span></li>
+</ol>
+</div>
+<div class="exercise">
+<h3>Ejercicio 16. Caso práctico integrador</h3>
+<p class="inst">Resuelve el caso aplicando conceptos de la unidad y unidades previas cuando corresponda.</p>
+<div class="example"><strong>Ejemplo:</strong> Solución modelo: delimitar alcance, listar 3+ problemas con causa, proponer diseño alineado a JS/ESM y tooling Node 20+, ejecutar pasos incrementales y validar con pruebas/observación; considerar seguridad, errores y mantenibilidad.</div>
+<ol class='items'>
+<li>Contexto: identifica actores, entradas, salidas y restricciones. <span class="line"></span><span class="line"></span><span class="line"></span></li>
+<li>Problemas detectados (mínimo 3) y causa probable. <span class="line"></span><span class="line"></span><span class="line"></span></li>
+<li>Decisiones de diseño/implementación y justificación. <span class="line"></span><span class="line"></span><span class="line"></span></li>
+<li>Plan de implementación por pasos (ordenado). <span class="line"></span><span class="line"></span><span class="line"></span></li>
+<li>Validación: cómo comprobarías que el caso quedó resuelto. <span class="line"></span><span class="line"></span></li>
+</ol>
+</div>
+<div class="exercise">
+<h3>Ejercicio 17. Depuración y análisis de causa raíz</h3>
+<p class="inst">Analiza el incidente y propone diagnóstico y corrección.</p>
+<div class="example"><strong>Ejemplo:</strong> Modelo: recolectar evidencia, formular hipótesis, aislar con reproducción, mitigar (rollback/flag/limit), corregir causa raíz, agregar tests y monitoreo/alertas.</div>
+<ol class='items'>
+<li>Síntoma observado y evidencia a recoger (logs, métricas, trazas, inputs). <span class="line"></span><span class="line"></span><span class="line"></span></li>
+<li>Hipótesis de causa raíz (al menos 2) y cómo descartarlas. <span class="line"></span><span class="line"></span><span class="line"></span></li>
+<li>Corrección inmediata (mitigación) y corrección definitiva. <span class="line"></span><span class="line"></span><span class="line"></span></li>
+<li>Riesgo de regresión y pruebas a añadir. <span class="line"></span><span class="line"></span></li>
+<li>Acción preventiva para evitar recurrencia. <span class="line"></span><span class="line"></span></li>
+</ol>
+</div>
+<div class="exercise">
+<h3>Ejercicio 18. Diseño y documentación técnica</h3>
+<p class="inst">Produce artefactos técnicos claros para el equipo.</p>
+<div class="example"><strong>Ejemplo:</strong> Modelo: contrato explícito, flujo por componentes, requisitos no funcionales, criterios medibles y runbook breve.</div>
+<ol class='items'>
+<li>Define contrato/interfaz (entradas, salidas, errores) relacionado con la solución. <span class="line"></span><span class="line"></span><span class="line"></span><span class="line"></span></li>
+<li>Diagrama o descripción estructurada de componentes/flujo (texto). <span class="line"></span><span class="line"></span><span class="line"></span></li>
+<li>Consideraciones de seguridad, rendimiento y compatibilidad. <span class="line"></span><span class="line"></span><span class="line"></span></li>
+<li>Criterios de aceptación y definición de terminado (DoD). <span class="line"></span><span class="line"></span></li>
+<li>Notas de operación/despliegue y rollback. <span class="line"></span><span class="line"></span></li>
+</ol>
+</div>
+<div class="exercise">
+<h3>Ejercicio 19. Producción avanzada y verificación</h3>
+<p class="inst">Entrega una implementación/plan detallado y su verificación.</p>
+<div class="example"><strong>Ejemplo:</strong> Modelo: implementación coherente, 5 verificaciones, fixtures claros, señales operativas y mejora incremental.</div>
+<ol class='items'>
+<li>Escribe módulo parseInput.js + validateRecord.js + report.js con manejo de errores y salida determinista. <span class="line"></span><span class="line"></span><span class="line"></span><span class="line"></span><span class="line"></span><span class="line"></span></li>
+<li>Casos de verificación: feliz, error, borde, seguridad y regresión. <span class="line"></span><span class="line"></span><span class="line"></span><span class="line"></span></li>
+<li>Datos/fixtures de ejemplo y resultado esperado. <span class="line"></span><span class="line"></span><span class="line"></span></li>
+<li>Observabilidad: logs/métricas/alertas relevantes. <span class="line"></span><span class="line"></span></li>
+<li>Riesgos, mitigaciones y próximos pasos. <span class="line"></span><span class="line"></span></li>
+</ol>
+</div>
+</section>

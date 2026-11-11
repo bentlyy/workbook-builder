@@ -1,0 +1,31 @@
+<p class="u">Unidad 16. Autenticación y sesiones: JWT, refresh tokens y 2FA/TOTP</p>
+<p><strong>Ej. 1:</strong> 1) identidad / permisos 2) corta 3) credenciales 4) verificados 5) variables de entorno/secret manager 6) exp</p>
+<p><strong>Ej. 2:</strong> 1) XSS 2) JavaScript 3) robo/replay 4) secreto 5) segura 6) refresh tokens/sesión</p>
+<p><strong>Ej. 3:</strong> a) Error b) Error c) Riesgo/mala práctica d) Correcto e) Error f) Correcto</p>
+<p><strong>Ej. 4:</strong> 1) bcrypt/argon2 2) vida corta 3) Authorization Bearer 4) revocar cadena 5) tiempo y secreto 6) comparación segura</p>
+<p><strong>Ej. 5:</strong> 1) evaluar cookies HttpOnly 2) habilitar 3) genéricos 4) aplicar límites 5) tokens un uso 6) invalidar sesiones</p>
+<p><strong>Ej. 6:</strong> 1) incluir exp y tiempos cortos 2) bcrypt.hash/compare 3) emitir nuevo refresh e invalidar anterior, detectar reuse 4) verificar firma y claims 5) 'credenciales inválidas' 6) generar secreto, verificar TOTP, requerir en login</p>
+<p><strong>Ej. 7:</strong> 1) a,b,c,d 2) 1-B,2-C,3-A 3) a,b,c,d 4) 1-B,2-C,3-A 5) a,b,c,d 6) 1-B,2-A,3-C</p>
+<p><strong>Ej. 8:</strong> 1) access corto (min) y refresh más largo con rotación 2) preferir cookies HttpOnly+protecciones según contexto 3) rate limit, backoff/captcha, bloqueo progresivo 4) revocar cadena y forzar re-login 5) admin/supervisión en login y acciones sensibles 6) logins, fallos, refresh reuse, cambios 2FA</p>
+<p><strong>Ej. 9:</strong> 1) extraer bearer, verify(token,secret), validar exp/claims 2) {accessToken,refreshToken,requires2fa} 3) hash robusto, tokens cortos+rotación, rate limiting, no loguear secretos</p>
+<p><strong>Ej. 10:</strong> 1) concepto central del tema 2) probar/validar 3) aplicar rotación de refresh 4) alternativa segura a access token largo 5) manejo explícito de verificación TOTP 6) evidencia: tests/logs/métricas</p>
+<p><strong>Ej. 11:</strong> a) Error b) Correcto c) Error d) Correcto e) Error/riesgo f) Correcto</p>
+<p><strong>Ej. 12:</strong> 1) definir contrato 2) retry con backoff 3) versionar/migrar 4) mínimo privilegio 5) medir y optimizar 6) CI con gates</p>
+<p><strong>Ej. 13:</strong> 1) validar inputs/estados 2) variables de entorno/config 3) try/catch y errores tipados/consistentes 4) observabilidad 5) extraer módulo/capa 6) manejar límite explícitamente</p>
+<p><strong>Ej. 14:</strong> Escenario: Intentos de fuerza bruta y robo de tokens exigen sesiones seguras y 2FA. Debes proponer una solución alineada a buenas prácticas de autenticación JWT/2FA considerando mantenibilidad, seguridad y operación en producción.</p>
+<p><strong>Ej. 15:</strong> 1) implementación/esquema correcto y claro 2) casos cubren éxito, fallo, límite y seguridad 3) criterios medibles 4) riesgos y mitigaciones 5) docs/operación 6) mejoras incrementales</p>
+<p><strong>Ej. 16:</strong> Solución modelo: delimitar alcance, listar 3+ problemas con causa, proponer diseño alineado a auth JWT/2FA, ejecutar pasos incrementales y validar con pruebas/observación; considerar seguridad, errores y mantenibilidad.</p>
+<p><strong>Ej. 17:</strong> Modelo: recolectar evidencia, formular hipótesis, aislar con reproducción, mitigar (rollback/flag/limit), corregir causa raíz, agregar tests y monitoreo/alertas.</p>
+<p><strong>Ej. 18:</strong> Modelo: contrato explícito, flujo por componentes, requisitos no funcionales, criterios medibles y runbook breve.</p>
+<p><strong>Ej. 19:</strong> Modelo: implementación coherente, 5 verificaciones, fixtures claros, señales operativas y mejora incremental.</p>
+<p><strong>Notas ampliadas U16:</strong> criterios de evaluación — corrección técnica, manejo de errores/bordes, seguridad, claridad de contratos, pruebas y observabilidad. Acepta variantes equivalentes bien justificadas.</p>
+
+<div class="ans-detail"><p><strong>Guía de corrección detallada U16:</strong></p>
+<ul>
+<li><strong>Completar/transformar:</strong> aceptar sinónimos técnicos correctos y variantes equivalentes (sintaxis, orden, comillas) si respetan semántica, tipos y seguridad.</li>
+<li><strong>Corregir:</strong> identificar error + causa + arreglo válido; "Correcto" solo si no hay fallo. Valorar explicación breve.</li>
+<li><strong>Elegir:</strong> además de la opción, reconocer por qué los distractores fallan (seguridad, contrato, consistencia, rendimiento).</li>
+<li><strong>Escenarios/casos/RCA:</strong> incluir contexto y supuestos, ≥3 hallazgos/riesgos con causa y evidencia, decisiones con trade-offs, pasos ordenados, verificación (tests/métricas/logs) y mitigación/rollback.</li>
+<li><strong>Producción/diseño:</strong> contrato claro (entradas/salidas/errores), manejo de bordes y errores, seguridad (authn/authz, validación, secretos, tenant), observabilidad y criterios de aceptación medibles.</li>
+<li><strong>Rúbrica (0-2):</strong> corrección técnica, seguridad y manejo de bordes, calidad de pruebas/verificación, claridad y operabilidad. 0=incorrecto, 1=parcial, 2=correcto y justificado.</li>
+</ul></div>

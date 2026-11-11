@@ -1,0 +1,31 @@
+<p class="u">Unidad 2. TypeScript esencial: tipos, uniones y narrowing</p>
+<p><strong>Ej. 1:</strong> 1) any / unknown 2) Array&lt;number&gt; 3) [string, boolean] 4) inferencia 5) never 6) undefined (o null según diseño)</p>
+<p><strong>Ej. 2:</strong> 1) interface / type 2) 'admin' | 'user' | 'guest' 3) T 4) Partial / Readonly 5) T[K] 6) type/status</p>
+<p><strong>Ej. 3:</strong> a) Error: tipo incompatible. b) Correcto. c) Correcto. d) Correcto. e) Error: puede ser null. f) Correcto.</p>
+<p><strong>Ej. 4:</strong> 1) User | null 2) in (o guards según caso) 3) no retorna normalmente 4) preservar literales 5) Record&lt;string, User&gt; 6) validar con esquema y tipar</p>
+<p><strong>Ej. 5:</strong> 1) unión discriminada 2) alias según dominio 3) Partial 4) unión/Result según caso 5) Readonly 6) compartir/generar</p>
+<p><strong>Ej. 6:</strong> 1) function greet(name: string): string {...} 2) interface Resp{id:number;active:boolean} 3) if(typeof x==='string'){...} 4) input: unknown y validar 5) function first&lt;T&gt;(arr:T[]):T|undefined 6) User['profile']</p>
+<p><strong>Ej. 7:</strong> 1) c,b,a 2) 1-B,2-A,3-C 3) b,a,c 4) 1-B,2-C,3-A 5) b,a,c,d 6) 1-C,2-A,3-B</p>
+<p><strong>Ej. 8:</strong> 1) No valida en runtime. 2) Esquema (Zod) + inferencia. 3) Unión discriminada. 4) opcional o string|null. 5) Unión de literales. 6) Detecta null/any implícitos.</p>
+<p><strong>Ej. 9:</strong> 1) type ApiResult&lt;T&gt;={ok:true;data:T}|{ok:false;error:string} 2) return typeof x==='string' &amp;&amp; x.length&gt;0 3) interface User{id:string;email:string;role:'admin'|'member'}</p>
+<p><strong>Ej. 10:</strong> 1) concepto central del tema 2) probar/validar 3) aplicar unknown 4) alternativa segura a any 5) manejo explícito de null/undefined 6) evidencia: tests/logs/métricas</p>
+<p><strong>Ej. 11:</strong> a) Error b) Correcto c) Error d) Correcto e) Error/riesgo f) Correcto</p>
+<p><strong>Ej. 12:</strong> 1) definir contrato 2) retry con backoff 3) versionar/migrar 4) mínimo privilegio 5) medir y optimizar 6) CI con gates</p>
+<p><strong>Ej. 13:</strong> 1) validar inputs/estados 2) variables de entorno/config 3) try/catch y errores tipados/consistentes 4) observabilidad 5) extraer módulo/capa 6) manejar límite explícitamente</p>
+<p><strong>Ej. 14:</strong> Escenario: Frontend y backend comparten modelos de producto/precio; hubo fallos por aserciones inseguras y opcionales mal manejados. Debes proponer una solución alineada a buenas prácticas de TypeScript y contratos considerando mantenibilidad, seguridad y operación en producción.</p>
+<p><strong>Ej. 15:</strong> 1) implementación/esquema correcto y claro 2) casos cubren éxito, fallo, límite y seguridad 3) criterios medibles 4) riesgos y mitigaciones 5) docs/operación 6) mejoras incrementales</p>
+<p><strong>Ej. 16:</strong> Solución modelo: delimitar alcance, listar 3+ problemas con causa, proponer diseño alineado a tipado TypeScript, ejecutar pasos incrementales y validar con pruebas/observación; considerar seguridad, errores y mantenibilidad.</p>
+<p><strong>Ej. 17:</strong> Modelo: recolectar evidencia, formular hipótesis, aislar con reproducción, mitigar (rollback/flag/limit), corregir causa raíz, agregar tests y monitoreo/alertas.</p>
+<p><strong>Ej. 18:</strong> Modelo: contrato explícito, flujo por componentes, requisitos no funcionales, criterios medibles y runbook breve.</p>
+<p><strong>Ej. 19:</strong> Modelo: implementación coherente, 5 verificaciones, fixtures claros, señales operativas y mejora incremental.</p>
+<p><strong>Notas ampliadas U2:</strong> criterios de evaluación — corrección técnica, manejo de errores/bordes, seguridad, claridad de contratos, pruebas y observabilidad. Acepta variantes equivalentes bien justificadas.</p>
+
+<div class="ans-detail"><p><strong>Guía de corrección detallada U2:</strong></p>
+<ul>
+<li><strong>Completar/transformar:</strong> aceptar sinónimos técnicos correctos y variantes equivalentes (sintaxis, orden, comillas) si respetan semántica, tipos y seguridad.</li>
+<li><strong>Corregir:</strong> identificar error + causa + arreglo válido; "Correcto" solo si no hay fallo. Valorar explicación breve.</li>
+<li><strong>Elegir:</strong> además de la opción, reconocer por qué los distractores fallan (seguridad, contrato, consistencia, rendimiento).</li>
+<li><strong>Escenarios/casos/RCA:</strong> incluir contexto y supuestos, ≥3 hallazgos/riesgos con causa y evidencia, decisiones con trade-offs, pasos ordenados, verificación (tests/métricas/logs) y mitigación/rollback.</li>
+<li><strong>Producción/diseño:</strong> contrato claro (entradas/salidas/errores), manejo de bordes y errores, seguridad (authn/authz, validación, secretos, tenant), observabilidad y criterios de aceptación medibles.</li>
+<li><strong>Rúbrica (0-2):</strong> corrección técnica, seguridad y manejo de bordes, calidad de pruebas/verificación, claridad y operabilidad. 0=incorrecto, 1=parcial, 2=correcto y justificado.</li>
+</ul></div>

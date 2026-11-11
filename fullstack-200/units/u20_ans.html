@@ -1,0 +1,31 @@
+<p class="u">Unidad 20. Docker, CI/CD, despliegue y observabilidad</p>
+<p><strong>Ej. 1:</strong> 1) imagen 2) servicios/contenedores 3) contexto 4) entorno 5) ataque 6) trazabilidad/versionado</p>
+<p><strong>Ej. 2:</strong> 1) entrega/despliegue 2) entorno 3) no saludables 4) diagnóstico 5) comportamiento 6) ruido</p>
+<p><strong>Ej. 3:</strong> a) Error b) Error c) Correcto d) Riesgo alto e) Error f) Correcto</p>
+<p><strong>Ej. 4:</strong> 1) puerto mapeado 2) service y env 3) rolling/canary 4) sacar/reiniciar 5) estructurados 6) env/secrets</p>
+<p><strong>Ej. 5:</strong> 1) observar y mitigar 2) planificado 3) en métricas 4) optimizar 5) mínimo privilegio 6) umbrales claros</p>
+<p><strong>Ej. 6:</strong> 1) FROM node:20-alpine, WORKDIR, COPY package*, RUN npm ci, COPY src 2) node_modules,.git,.env 3) EXPOSE 3000 y CMD 4) PORT,DATABASE_URL,JWT_SECRET 5) tests/lint/build 6) GET /health</p>
+<p><strong>Ej. 7:</strong> 1) a,b,c,d 2) 1-B,2-A,3-C 3) a,b,c,d 4) 1-C,2-A,3-B 5) a,b,c,d 6) 1-B,2-A,3-C</p>
+<p><strong>Ej. 8:</strong> 1) api y db (y opcional admin) 2) DB URL, secretos JWT, keys 3) lint/test/build, docker build/push 4) /health y readiness según dependencias 5) tasa 5xx, latencia, errores de DB 6) redeploy de imagen/tag previa</p>
+<p><strong>Ej. 9:</strong> 1) FROM node:20-alpine, WORKDIR, COPY package*, npm ci --omit=dev, COPY, EXPOSE, CMD 2) services api y postgres con env/ports/depends_on 3) health checks, observabilidad, rollback y secretos seguros</p>
+<p><strong>Ej. 10:</strong> 1) concepto central del tema 2) probar/validar 3) aplicar healthcheck 4) alternativa segura a secretos en imagen 5) manejo explícito de estrategia de rollback 6) evidencia: tests/logs/métricas</p>
+<p><strong>Ej. 11:</strong> a) Error b) Correcto c) Error d) Correcto e) Error/riesgo f) Correcto</p>
+<p><strong>Ej. 12:</strong> 1) definir contrato 2) retry con backoff 3) versionar/migrar 4) mínimo privilegio 5) medir y optimizar 6) CI con gates</p>
+<p><strong>Ej. 13:</strong> 1) validar inputs/estados 2) variables de entorno/config 3) try/catch y errores tipados/consistentes 4) observabilidad 5) extraer módulo/capa 6) manejar límite explícitamente</p>
+<p><strong>Ej. 14:</strong> Escenario: Se necesitan releases reproducibles, observabilidad y recuperación ante fallos. Debes proponer una solución alineada a buenas prácticas de Docker y operación considerando mantenibilidad, seguridad y operación en producción.</p>
+<p><strong>Ej. 15:</strong> 1) implementación/esquema correcto y claro 2) casos cubren éxito, fallo, límite y seguridad 3) criterios medibles 4) riesgos y mitigaciones 5) docs/operación 6) mejoras incrementales</p>
+<p><strong>Ej. 16:</strong> Solución modelo: delimitar alcance, listar 3+ problemas con causa, proponer diseño alineado a Docker y operación, ejecutar pasos incrementales y validar con pruebas/observación; considerar seguridad, errores y mantenibilidad.</p>
+<p><strong>Ej. 17:</strong> Modelo: recolectar evidencia, formular hipótesis, aislar con reproducción, mitigar (rollback/flag/limit), corregir causa raíz, agregar tests y monitoreo/alertas.</p>
+<p><strong>Ej. 18:</strong> Modelo: contrato explícito, flujo por componentes, requisitos no funcionales, criterios medibles y runbook breve.</p>
+<p><strong>Ej. 19:</strong> Modelo: implementación coherente, 5 verificaciones, fixtures claros, señales operativas y mejora incremental.</p>
+<p><strong>Notas ampliadas U20:</strong> criterios de evaluación — corrección técnica, manejo de errores/bordes, seguridad, claridad de contratos, pruebas y observabilidad. Acepta variantes equivalentes bien justificadas.</p>
+
+<div class="ans-detail"><p><strong>Guía de corrección detallada U20:</strong></p>
+<ul>
+<li><strong>Completar/transformar:</strong> aceptar sinónimos técnicos correctos y variantes equivalentes (sintaxis, orden, comillas) si respetan semántica, tipos y seguridad.</li>
+<li><strong>Corregir:</strong> identificar error + causa + arreglo válido; "Correcto" solo si no hay fallo. Valorar explicación breve.</li>
+<li><strong>Elegir:</strong> además de la opción, reconocer por qué los distractores fallan (seguridad, contrato, consistencia, rendimiento).</li>
+<li><strong>Escenarios/casos/RCA:</strong> incluir contexto y supuestos, ≥3 hallazgos/riesgos con causa y evidencia, decisiones con trade-offs, pasos ordenados, verificación (tests/métricas/logs) y mitigación/rollback.</li>
+<li><strong>Producción/diseño:</strong> contrato claro (entradas/salidas/errores), manejo de bordes y errores, seguridad (authn/authz, validación, secretos, tenant), observabilidad y criterios de aceptación medibles.</li>
+<li><strong>Rúbrica (0-2):</strong> corrección técnica, seguridad y manejo de bordes, calidad de pruebas/verificación, claridad y operabilidad. 0=incorrecto, 1=parcial, 2=correcto y justificado.</li>
+</ul></div>

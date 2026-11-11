@@ -1,0 +1,231 @@
+<section class="unit" id="u10">
+<h2>Unidad 10. Integración cliente-API y gestión de estado remoto</h2>
+<p class="context">Consumir APIs desde el frontend implica más que hacer una petición: requiere manejar latencia, errores, estados vacíos, reintentos y coherencia de datos. Una buena integración mejora la experiencia de usuario y reduce inconsistencias. Esta unidad practica patrones de fetching, manejo de estados, sincronización básica y decisiones para comunicar el cliente con servicios REST de forma resiliente.</p>
+<div class="exercise">
+<h3>Ejercicio 1. Completar: estados y ciclo de petición</h3>
+<p class="inst">Completa con el concepto correcto.</p>
+<div class="example"><strong>Ejemplo:</strong> Ejemplo: Una petición típica pasa por estados como idle/loading/success/error.</div>
+<ol class='items'>
+<li>Antes de recibir respuesta, la UI debería reflejar estado <span class="blank md"></span>.</li>
+<li>Si la respuesta es exitosa pero sin datos, se debe manejar el estado <span class="blank md"></span>.</li>
+<li>Ante fallo de red o 5xx, la UI debe mostrar un estado de <span class="blank md"></span> con opción de <span class="blank md"></span>.</li>
+<li>Cancelar o ignorar respuestas obsoletas evita condiciones de <span class="blank md"></span> al cambiar filtros rápido.</li>
+<li>Guardar en cache respuestas puede reducir latencia pero requiere estrategia de <span class="blank md"></span>.</li>
+<li>Mostrar datos parciales puede ser preferible a bloquear toda la pantalla cuando una fuente <span class="blank md"></span>.</li>
+</ol>
+</div>
+<div class="exercise">
+<h3>Ejercicio 2. Completar: fetch, errores y contratos</h3>
+<p class="inst">Completa los conceptos.</p>
+<ol class='items'>
+<li><code>fetch</code> no rechaza por códigos HTTP 4xx/5xx; hay que verificar <span class="blank md"></span> o el status.</li>
+<li>Parsear JSON de una respuesta vacía o inválida puede lanzar <span class="blank md"></span>.</li>
+<li>Enviar credenciales/cookies requiere configuración adecuada (<span class="blank md"></span>) según el caso.</li>
+<li>Los timeouts y abortos pueden implementarse con <span class="blank lg"></span>.</li>
+<li>Normalizar errores de API a un formato interno facilita el <span class="blank md"></span> en la UI.</li>
+<li>Reintentar automáticamente tiene sentido en fallos <span class="blank md"></span>, no en errores de validación.</li>
+</ol>
+</div>
+<div class="exercise">
+<h3>Ejercicio 3. Corregir errores (si es correcto, escribe "Correcto")</h3>
+<p class="inst">Corrige o marca "Correcto".</p>
+<ol class='items'>
+<li>Asumir que <code>await fetch(url)</code> lanza error en 404. → <span class="line"></span></li>
+<li>Mostrar spinner infinito sin manejar error ni timeout. → <span class="line"></span></li>
+<li>Validar y tipar la respuesta antes de usarla en la UI. → <span class="line"></span></li>
+<li>Disparar múltiples peticiones idénticas en cada render sin control. → <span class="line"></span></li>
+<li>Mostrar mensaje genérico útil y registrar detalle técnico en logs/monitoring. → <span class="line"></span></li>
+<li>Actualizar estado con respuesta de una petición antigua después de que el usuario cambió el filtro. → <span class="line"></span></li>
+</ol>
+</div>
+<div class="exercise">
+<h3>Ejercicio 4. Elegir la opción correcta</h3>
+<p class="inst">Elige la alternativa adecuada.</p>
+<ol class='items'>
+<li>Para detectar 500: (<code>try/catch solamente</code> / <code>verificar status/ok</code> además).</li>
+<li>Búsqueda con tipeo rápido: (<code>debounce/cancelación</code> / <code>petición por tecla sin control</code>).</li>
+<li>Error 400 por input: (<code>reintentar automáticamente</code> / <code>corregir input y mostrar feedback</code>).</li>
+<li>Datos compartidos en varias vistas: (<code>cache/estado remoto centralizado</code> / <code>duplicar fetches inconsistentes</code>).</li>
+<li>Lista vacía tras filtro: (<code>estado empty con mensaje</code> / <code>tabla rota</code>).</li>
+<li>Operación de guardado: (<code>optimistic UI con cuidado</code> / <code>sin feedback</code> según riesgo).</li>
+</ol>
+</div>
+<div class="exercise">
+<h3>Ejercicio 5. Elegir/decisión de resiliencia</h3>
+<p class="inst">Selecciona la mejor decisión.</p>
+<ol class='items'>
+<li>Timeout de API lenta: (<code>esperar forever</code> / <code>límite + mensaje/reintento</code>).</li>
+<li>Reintentos: (<code>solo transitorios con backoff</code> / <code>para 400 siempre</code>).</li>
+<li>Exponer detalle interno al usuario final: (<code>evitar</code> / <code>mostrar stack trace</code>).</li>
+<li>Sincronización tras mutación: (<code>invalidar/re-fetch</code> / <code>esperar que se actualice solo</code>).</li>
+<li>Indicador de carga: (<code>por sección cuando aplique</code> / <code>bloqueo total innecesario</code>).</li>
+<li>Paginación remota: (<code>pedir páginas/cursores</code> / <code>traer todo siempre</code>).</li>
+</ol>
+</div>
+<div class="exercise">
+<h3>Ejercicio 6. Transformar: mejorar integración con API</h3>
+<p class="inst">Transforma según se indique.</p>
+<ol class='items'>
+<li>Fetch sin chequeo de estado → añade verificación: <span class="line"></span><span class="line"></span></li>
+<li>UI sin manejo de error → define estados <code>data,loading,error</code>: <span class="line"></span></li>
+<li>Peticiones en cada tecla → estrategia con debounce/abort: <span class="line"></span><span class="line"></span></li>
+<li>Error técnico crudo al usuario → mensaje amigable + logging: <span class="line"></span><span class="line"></span></li>
+<li>Actualización tras POST sin refrescar datos → acción: <span class="line"></span></li>
+<li>Cliente confía en respuesta sin validar → mejora: <span class="line"></span></li>
+</ol>
+</div>
+<div class="exercise">
+<h3>Ejercicio 7. Reordenar/relacionar: flujo de datos remoto</h3>
+<p class="inst">Ordena o relaciona.</p>
+<ol class='items'>
+<li>Petición: (a) iniciar loading (b) request (c) éxito/error (d) actualizar UI. → <span class="line"></span></li>
+<li>1)200 2)401 3)500 con A)éxito B)auth requerida C)fallo servidor. → <span class="line"></span></li>
+<li>Búsqueda: (a) input usuario (b) debounce (c) fetch (d) render resultados). → <span class="line"></span></li>
+<li>1)retry 2)cache 3)abort con A)cancelar B)reintentar C)reutilizar. → <span class="line"></span></li>
+<li>Mutación: (a) enviar (b) manejar respuesta (c) invalidar datos (d) feedback). → <span class="line"></span></li>
+<li>1)loading 2)empty 3)error con A)sin datos B)fallo C)espera. → <span class="line"></span></li>
+</ol>
+</div>
+<div class="exercise">
+<h3>Ejercicio 8. Escenario: buscador de repuestos con filtros</h3>
+<p class="inst">Responde al escenario.</p>
+<div class="example"><strong>Ejemplo:</strong> Escenario: interfaz React/Next que consulta /parts con filtros por categoría, stock y texto. La red es inestable en sucursales y los usuarios cambian filtros rápidamente.</div>
+<ol class='items'>
+<li>¿Qué estados de UI necesitas por consulta? <span class="line"></span></li>
+<li>Estrategia para evitar respuestas fuera de orden: <span class="line"></span></li>
+<li>Cómo manejar 500 intermitente vs 400 por filtro inválido: <span class="line"></span><span class="line"></span></li>
+<li>¿Cuándo usarías cache/revalidación? <span class="line"></span></li>
+<li>Qué feedback dar al guardar un filtro favorito (mutación): <span class="line"></span></li>
+<li>2 métricas/observaciones útiles para detectar problemas de integración: <span class="line"></span><span class="line"></span></li>
+</ol>
+</div>
+<div class="exercise">
+<h3>Ejercicio 9. Producción guiada</h3>
+<p class="inst">Escribe soluciones breves.</p>
+<ol class='items'>
+<li>Función <code>fetchJson</code> que lance error si <code>!res.ok</code> y retorne JSON. <span class="line"></span><span class="line"></span><span class="line"></span></li>
+<li>Esquema de estado para hook de búsqueda: <span class="line"></span><span class="line"></span></li>
+<li>3 buenas prácticas para consumir APIs desde el frontend. <span class="line"></span><span class="line"></span><span class="line"></span></li>
+</ol>
+</div>
+<div class="exercise">
+<h3>Ejercicio 10. Completar avanzado: integración cliente-API</h3>
+<p class="inst">Completa con el término, API o práctica correcta (profundización).</p>
+<ol class='items'>
+<li>Un concepto clave para robustez en integración cliente-API es <span class="blank lg"></span>, porque reduce fallos en producción.</li>
+<li>Antes de desplegar cambios relacionados se debe <span class="blank lg"></span> (verificación recomendada).</li>
+<li>Usar <code>AbortController</code> correctamente permite <span class="blank lg"></span> cuando el contexto lo requiere.</li>
+<li>Una mala práctica frecuente es <code>ignorar res.ok</code>; en su lugar conviene <span class="blank lg"></span>.</li>
+<li>Para casos límite como reintento en 400 la estrategia adecuada es <span class="blank lg"></span>.</li>
+<li>Una señal de implementación madura incluye <span class="blank lg"></span> (observabilidad, pruebas o métricas).</li>
+</ol>
+</div>
+<div class="exercise">
+<h3>Ejercicio 11. Corregir avanzado (marca "Correcto" si aplica)</h3>
+<p class="inst">Analiza decisiones típicas e identifica errores sutiles.</p>
+<ol class='items'>
+<li>Omitir validación o controles en el borde del sistema. → <span class="line"></span></li>
+<li>Registrar contexto suficiente (sin secretos) para diagnosticar fallos. → <span class="line"></span></li>
+<li>Aplicar una solución sin considerar impacto en seguridad o datos. → <span class="line"></span></li>
+<li>Automatizar pruebas y checks relevantes para el cambio. → <span class="line"></span></li>
+<li>Usar configuraciones iguales en todos los entornos sin control. → <span class="line"></span></li>
+<li>Documentar contratos, supuestos y pasos de operación. → <span class="line"></span></li>
+</ol>
+</div>
+<div class="exercise">
+<h3>Ejercicio 12. Elegir avanzado: decisiones y trade-offs</h3>
+<p class="inst">Selecciona la opción más adecuada.</p>
+<ol class='items'>
+<li>Requisito ambiguo: (<code>definir contrato y validar</code> / <code>asumir</code> / <code>implementar sin acordar</code>).</li>
+<li>Fallo transitorio de dependencia: (<code>retry con backoff y límite</code> / <code>reintento infinito</code> / <code>ignorar error</code>).</li>
+<li>Cambio incompatible: (<code>versionar/migrar</code> / <code>romper silenciosamente</code> / <code>no avisar</code>).</li>
+<li>Acceso a datos sensibles: (<code>mínimo privilegio y controles</code> / <code>acceso amplio</code> / <code>exponer en logs</code>).</li>
+<li>Degradación de rendimiento: (<code>medir y optimizar cuello</code> / <code>optimizar a ciegas</code> / <code>ignorar</code>).</li>
+<li>Entregas frecuentes: (<code>CI con gates</code> / <code>deploy manual sin pruebas</code> / <code>saltar revisión</code>).</li>
+</ol>
+</div>
+<div class="exercise">
+<h3>Ejercicio 13. Transformar avanzado: de frágil a robusto</h3>
+<p class="inst">Transforma a una alternativa más segura y mantenible.</p>
+<ol class='items'>
+<li>Implementación sin validación → añade validación/guards explícitos. <span class="line"></span><span class="line"></span></li>
+<li>Valor/config hardcodeado → uso de configuración por entorno. <span class="line"></span></li>
+<li>Flujo sin manejo de errores → manejo consistente y respuesta adecuada. <span class="line"></span><span class="line"></span></li>
+<li>Operación sin trazabilidad → logging/métricas con contexto. <span class="line"></span></li>
+<li>Componente acoplado → separación de responsabilidades (indica extracción). <span class="line"></span><span class="line"></span></li>
+<li>Caso límite reintento en 400 no cubierto → tratamiento correcto. <span class="line"></span></li>
+</ol>
+</div>
+<div class="exercise">
+<h3>Ejercicio 14. Escenario extendido: buscador con filtros y red inestable</h3>
+<p class="inst">Responde con decisiones técnicas, mitigaciones y verificación.</p>
+<ol class='items'>
+<li>Objetivo y alcance del cambio (qué incluye/excluye). <span class="line"></span><span class="line"></span></li>
+<li>Riesgos principales (seguridad, datos, disponibilidad) y mitigación. <span class="line"></span><span class="line"></span><span class="line"></span></li>
+<li>Decisiones de diseño/contrato y por qué. <span class="line"></span><span class="line"></span></li>
+<li>Estrategia de pruebas (unitarias, integración, casos borde). <span class="line"></span><span class="line"></span><span class="line"></span></li>
+<li>Métricas/logs/alertas para operar y detectar fallos. <span class="line"></span><span class="line"></span></li>
+<li>Plan de despliegue y rollback. <span class="line"></span><span class="line"></span></li>
+</ol>
+</div>
+<div class="exercise">
+<h3>Ejercicio 15. Producción extendida: entrega práctica</h3>
+<p class="inst">Desarrolla una solución concreta y verificable.</p>
+<ol class='items'>
+<li>Implementa capa fetchJson y hook de búsqueda con cancelación, estados y manejo de errores. <span class="line"></span><span class="line"></span><span class="line"></span><span class="line"></span><span class="line"></span></li>
+<li>Define 4 casos de verificación (feliz, error, borde, seguridad/regresión). <span class="line"></span><span class="line"></span><span class="line"></span></li>
+<li>Criterios de aceptación medibles (3). <span class="line"></span><span class="line"></span></li>
+<li>Riesgos residuales y mitigación. <span class="line"></span><span class="line"></span></li>
+<li>Notas de documentación/operación necesarias. <span class="line"></span><span class="line"></span></li>
+<li>Dos mejoras incrementales futuras. <span class="line"></span><span class="line"></span></li>
+</ol>
+</div>
+<div class="exercise">
+<h3>Ejercicio 16. Caso práctico integrador</h3>
+<p class="inst">Resuelve el caso aplicando conceptos de la unidad y unidades previas cuando corresponda.</p>
+<div class="example"><strong>Ejemplo:</strong> Solución modelo: delimitar alcance, listar 3+ problemas con causa, proponer diseño alineado a integración cliente-API, ejecutar pasos incrementales y validar con pruebas/observación; considerar seguridad, errores y mantenibilidad.</div>
+<ol class='items'>
+<li>Contexto: identifica actores, entradas, salidas y restricciones. <span class="line"></span><span class="line"></span><span class="line"></span></li>
+<li>Problemas detectados (mínimo 3) y causa probable. <span class="line"></span><span class="line"></span><span class="line"></span></li>
+<li>Decisiones de diseño/implementación y justificación. <span class="line"></span><span class="line"></span><span class="line"></span></li>
+<li>Plan de implementación por pasos (ordenado). <span class="line"></span><span class="line"></span><span class="line"></span></li>
+<li>Validación: cómo comprobarías que el caso quedó resuelto. <span class="line"></span><span class="line"></span></li>
+</ol>
+</div>
+<div class="exercise">
+<h3>Ejercicio 17. Depuración y análisis de causa raíz</h3>
+<p class="inst">Analiza el incidente y propone diagnóstico y corrección.</p>
+<div class="example"><strong>Ejemplo:</strong> Modelo: recolectar evidencia, formular hipótesis, aislar con reproducción, mitigar (rollback/flag/limit), corregir causa raíz, agregar tests y monitoreo/alertas.</div>
+<ol class='items'>
+<li>Síntoma observado y evidencia a recoger (logs, métricas, trazas, inputs). <span class="line"></span><span class="line"></span><span class="line"></span></li>
+<li>Hipótesis de causa raíz (al menos 2) y cómo descartarlas. <span class="line"></span><span class="line"></span><span class="line"></span></li>
+<li>Corrección inmediata (mitigación) y corrección definitiva. <span class="line"></span><span class="line"></span><span class="line"></span></li>
+<li>Riesgo de regresión y pruebas a añadir. <span class="line"></span><span class="line"></span></li>
+<li>Acción preventiva para evitar recurrencia. <span class="line"></span><span class="line"></span></li>
+</ol>
+</div>
+<div class="exercise">
+<h3>Ejercicio 18. Diseño y documentación técnica</h3>
+<p class="inst">Produce artefactos técnicos claros para el equipo.</p>
+<div class="example"><strong>Ejemplo:</strong> Modelo: contrato explícito, flujo por componentes, requisitos no funcionales, criterios medibles y runbook breve.</div>
+<ol class='items'>
+<li>Define contrato/interfaz (entradas, salidas, errores) relacionado con la solución. <span class="line"></span><span class="line"></span><span class="line"></span><span class="line"></span></li>
+<li>Diagrama o descripción estructurada de componentes/flujo (texto). <span class="line"></span><span class="line"></span><span class="line"></span></li>
+<li>Consideraciones de seguridad, rendimiento y compatibilidad. <span class="line"></span><span class="line"></span><span class="line"></span></li>
+<li>Criterios de aceptación y definición de terminado (DoD). <span class="line"></span><span class="line"></span></li>
+<li>Notas de operación/despliegue y rollback. <span class="line"></span><span class="line"></span></li>
+</ol>
+</div>
+<div class="exercise">
+<h3>Ejercicio 19. Producción avanzada y verificación</h3>
+<p class="inst">Entrega una implementación/plan detallado y su verificación.</p>
+<div class="example"><strong>Ejemplo:</strong> Modelo: implementación coherente, 5 verificaciones, fixtures claros, señales operativas y mejora incremental.</div>
+<ol class='items'>
+<li>Implementa cliente API con abort, retry selectivo y cache/invalidation. <span class="line"></span><span class="line"></span><span class="line"></span><span class="line"></span><span class="line"></span><span class="line"></span></li>
+<li>Casos de verificación: feliz, error, borde, seguridad y regresión. <span class="line"></span><span class="line"></span><span class="line"></span><span class="line"></span></li>
+<li>Datos/fixtures de ejemplo y resultado esperado. <span class="line"></span><span class="line"></span><span class="line"></span></li>
+<li>Observabilidad: logs/métricas/alertas relevantes. <span class="line"></span><span class="line"></span></li>
+<li>Riesgos, mitigaciones y próximos pasos. <span class="line"></span><span class="line"></span></li>
+</ol>
+</div>
+</section>

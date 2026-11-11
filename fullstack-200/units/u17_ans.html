@@ -1,0 +1,31 @@
+<p class="u">Unidad 17. Autorización, RBAC y hardening de API</p>
+<p><strong>Ej. 1:</strong> 1) RBAC / ABAC 2) privilegio 3) otros 4) contexto 5) servidor 6) maliciosos/anómalos</p>
+<p><strong>Ej. 2:</strong> 1) seguridad 2) fuerza bruta/DoS 3) específicos 4) malformados 5) código fuente 6) detalles</p>
+<p><strong>Ej. 3:</strong> a) Error b) Correcto c) Error d) Correcto e) Error f) Correcto</p>
+<p><strong>Ej. 4:</strong> 1) 403 2) sin datos sensibles 3) CSP/frame-ancestors 4) lista blanca 5) esquemas en borde 6) verificar firma</p>
+<p><strong>Ej. 5:</strong> 1) deny by default 2) sin filtrar 3) auditar 4) validar 5) secret store 6) sin sensibles</p>
+<p><strong>Ej. 6:</strong> 1) middleware requireRole('admin') 2) WHERE id AND tenant_id 3) orígenes específicos, credenciales controladas 4) mensaje genérico + log interno 5) validar firma HMAC y timestamp 6) límite por IP/usuario y backoff</p>
+<p><strong>Ej. 7:</strong> 1) a,b,c,d 2) 1-A,2-C,3-B 3) 1-B,2-C,3-A 4) a,b,c,d 5) a,b,c,d 6) 1-C,2-A,3-B</p>
+<p><strong>Ej. 8:</strong> 1) authn, RBAC admin, verificación tenant/alcance 2) tenant desde contexto y filtros obligatorios 3) límites por IP/ruta y tolerancia controlada 4) validar firma HMAC, timestamp, idempotencia 5) Helmet/CSP, CORS estricto, límites tamaño 6) actor, recurso, resultado, IP/tiempo</p>
+<p><strong>Ej. 9:</strong> 1) comprobar req.user.roles incluye role sino 403 2) calcular HMAC del payload y comparar en tiempo seguro 3) deny by default, validar siempre, tenant desde contexto</p>
+<p><strong>Ej. 10:</strong> 1) concepto central del tema 2) probar/validar 3) aplicar requireRole y ownership 4) alternativa segura a CORS * con credenciales 5) manejo explícito de verificación HMAC 6) evidencia: tests/logs/métricas</p>
+<p><strong>Ej. 11:</strong> a) Error b) Correcto c) Error d) Correcto e) Error/riesgo f) Correcto</p>
+<p><strong>Ej. 12:</strong> 1) definir contrato 2) retry con backoff 3) versionar/migrar 4) mínimo privilegio 5) medir y optimizar 6) CI con gates</p>
+<p><strong>Ej. 13:</strong> 1) validar inputs/estados 2) variables de entorno/config 3) try/catch y errores tipados/consistentes 4) observabilidad 5) extraer módulo/capa 6) manejar límite explícitamente</p>
+<p><strong>Ej. 14:</strong> Escenario: Acciones críticas y webhooks requieren permisos, aislamiento y verificación de integridad. Debes proponer una solución alineada a buenas prácticas de RBAC y hardening considerando mantenibilidad, seguridad y operación en producción.</p>
+<p><strong>Ej. 15:</strong> 1) implementación/esquema correcto y claro 2) casos cubren éxito, fallo, límite y seguridad 3) criterios medibles 4) riesgos y mitigaciones 5) docs/operación 6) mejoras incrementales</p>
+<p><strong>Ej. 16:</strong> Solución modelo: delimitar alcance, listar 3+ problemas con causa, proponer diseño alineado a RBAC y hardening, ejecutar pasos incrementales y validar con pruebas/observación; considerar seguridad, errores y mantenibilidad.</p>
+<p><strong>Ej. 17:</strong> Modelo: recolectar evidencia, formular hipótesis, aislar con reproducción, mitigar (rollback/flag/limit), corregir causa raíz, agregar tests y monitoreo/alertas.</p>
+<p><strong>Ej. 18:</strong> Modelo: contrato explícito, flujo por componentes, requisitos no funcionales, criterios medibles y runbook breve.</p>
+<p><strong>Ej. 19:</strong> Modelo: implementación coherente, 5 verificaciones, fixtures claros, señales operativas y mejora incremental.</p>
+<p><strong>Notas ampliadas U17:</strong> criterios de evaluación — corrección técnica, manejo de errores/bordes, seguridad, claridad de contratos, pruebas y observabilidad. Acepta variantes equivalentes bien justificadas.</p>
+
+<div class="ans-detail"><p><strong>Guía de corrección detallada U17:</strong></p>
+<ul>
+<li><strong>Completar/transformar:</strong> aceptar sinónimos técnicos correctos y variantes equivalentes (sintaxis, orden, comillas) si respetan semántica, tipos y seguridad.</li>
+<li><strong>Corregir:</strong> identificar error + causa + arreglo válido; "Correcto" solo si no hay fallo. Valorar explicación breve.</li>
+<li><strong>Elegir:</strong> además de la opción, reconocer por qué los distractores fallan (seguridad, contrato, consistencia, rendimiento).</li>
+<li><strong>Escenarios/casos/RCA:</strong> incluir contexto y supuestos, ≥3 hallazgos/riesgos con causa y evidencia, decisiones con trade-offs, pasos ordenados, verificación (tests/métricas/logs) y mitigación/rollback.</li>
+<li><strong>Producción/diseño:</strong> contrato claro (entradas/salidas/errores), manejo de bordes y errores, seguridad (authn/authz, validación, secretos, tenant), observabilidad y criterios de aceptación medibles.</li>
+<li><strong>Rúbrica (0-2):</strong> corrección técnica, seguridad y manejo de bordes, calidad de pruebas/verificación, claridad y operabilidad. 0=incorrecto, 1=parcial, 2=correcto y justificado.</li>
+</ul></div>
